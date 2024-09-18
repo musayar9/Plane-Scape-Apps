@@ -8,7 +8,7 @@ import { FaPlane } from "react-icons/fa6";
 import { FlightTime } from "../utils/Functiıon";
 const FlightList = ({ flight }) => {
   return (
-    <div className=" ">
+    <div >
       {flight.map((item) => (
         <div
           key={item.id}
@@ -72,7 +72,10 @@ const FlightList = ({ flight }) => {
 
               {/* Uçuş Bilgileri (Hava yolu ve uçuş mesafesi) */}
               <div className="flex items-center flex-col gap-2">
+              <div  className="flex items-center justify-center font-bold gap-2">
                 <Airline airline={item.prefixIATA} />
+               <hr className="text-[#4b0097] w-4"/> <span className="text-emerald-500 text-xs">{item.flightName}</span>
+              </div>
                 <FaPlane className="text-[#4b0097]" size={18} />
 
                 <p className="text-sm text-slate-500">
@@ -120,7 +123,7 @@ const FlightList = ({ flight }) => {
                 </p>
                 <p className="text-xs text-slate-500">Round Trip</p>
               </div>
-              <button className="bg-[#4b0097] text-sm font-semibold p-4 text-white rounded-tl-lg rounded-br-lg">
+              <button className="bg-[#4b0097] text-sm font-semibold p-4 text-white rounded-tl-lg rounded-br-lg hover:opacity-85 duration-200 ease-linear">
                 Book Flight
               </button>
             </div>
