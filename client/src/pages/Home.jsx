@@ -8,11 +8,11 @@ const Home = () => {
   useEffect(() => {
     const getFlight = async () => {
       const res = await axios.get(
-        `/api?includedelays=false&page=0&sort=%2BscheduleTime`,
+        `/api/flights?includedelays=false&page=0&sort=%2BscheduleTime`,
         {
           headers: {
             Accept: "application/json",
-            app_id:  import.meta.env.VITE_APP_ID,
+            app_id: import.meta.env.VITE_APP_ID,
             app_key: import.meta.env.VITE_APP_KEY,
             ResourceVersion: "v4",
           },

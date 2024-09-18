@@ -8,7 +8,7 @@ export default defineConfig({
       "/api": {
         target: "https://api.schiphol.nl",
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, "/public-flights/flights"),
+        rewrite: (path) => path.replace(/^\/api/, "/public-flights"),
       },
     },
   },
