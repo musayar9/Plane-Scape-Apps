@@ -34,9 +34,9 @@ const Destinations = ({ destination }) => {
   }, [destination]);
 
   return (
-    <p className="text-md text-slate-700 font-semibold">
+    <p className="text-md text-slate-600 font-semibold">
       {destination === "KLM"
-        ? "Netherlands"
+        ? "Amstelveen"
         : destinationInfo.city
         ? destinationInfo.city
         : destinationInfo.country}

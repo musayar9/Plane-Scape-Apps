@@ -11,7 +11,7 @@ export const FlightTime = ({ scheduleTime, landingTime }) => {
   if (hours > 0) {
     return `${hours}h:${minutes}m`;
   } else {
-    return `${minutes}m`;
+    return `${minutes} minutes`;
   }
 };
 

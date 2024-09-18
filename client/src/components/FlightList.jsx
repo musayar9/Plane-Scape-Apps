@@ -10,9 +10,18 @@ const FlightList = ({ flight }) => {
   return (
     <div>
       {flight.map((item) => (
-        <div key={item.id} className={`${moment(item.actualLandingTime).isSameOrBefore(moment(item.scheduleDateTime)) ? "hidden":"block"} bg-gray-100 rounded-md p-4 m-4 gap-4`}>
+        <div
+          key={item.id}
+          className={`${
+            moment(item.actualLandingTime).isSameOrBefore(
+              moment(item.scheduleDateTime)
+            )
+              ? "hidden"
+              : "block"
+          } bg-gray-100 rounded-md p-4 m-4 gap-4`}
+        >
           <div>
-            <div className=" flex items-center justify-between border border-red-600">
+            <div className=" flex items-center justify-between ">
               <div className="flex">
                 {" "}
                 {item.flightDirection === "A" ? (
@@ -37,11 +46,11 @@ const FlightList = ({ flight }) => {
               </p>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 ">
               <Destinations destination={item?.prefixICAO} /> -
               <Destinations destination={item?.route.destinations[0]} />
             </div>
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between px-4">
               {/* Kalkış Bilgileri */}
 
               <div className="flex items-start flex-col">
@@ -59,19 +68,32 @@ const FlightList = ({ flight }) => {
                 </p>
               </div>
 
-              {/* Uçuş Bilgileri (Hava yolu ve uçuş mesafesi) */}
-              <div>
-                <Airline airline={item.prefixIATA} />
-                <FaPlane className="text-[#4b0097]" />
+              <hr className="border border-[#4b0097] w-24" />
 
-                <p>
-                  {FlightTime({
-                    scheduleTime: item.scheduleDateTime,
-                    landingTime: item.actualLandingTime,
-                  })}{" "}
-       
+              {/* Uçuş Bilgileri (Hava yolu ve uçuş mesafesi) */}
+              <div className="flex items-center flex-col gap-2">
+                <Airline airline={item.prefixIATA} />
+                <FaPlane className="text-[#4b0097]" size={18} />
+
+                <p className="text-sm text-slate-500">
+                  <span>
+                    {" "}
+                    {FlightTime({
+                      scheduleTime: item.scheduleDateTime,
+                      landingTime: item.actualLandingTime,
+                    })}{" "}
+                  </span>
+                  <span>
+                    (
+                    {item?.route.destinations.length > 1
+                      ? "Connecting Flight"
+                      : "NonStop"}
+                    )
+                  </span>
                 </p>
               </div>
+
+              <hr className="border border-[#4b0097] w-24" />
 
               {/* Varış Bilgileri */}
               <div className="flex items-start flex-col">
@@ -89,16 +111,6 @@ const FlightList = ({ flight }) => {
                 </p>
               </div>
             </div>
-
-            <p></p>
-
-            <p>Departure Time</p>
-            <p>{item.flightName}</p>
-            <p>
-              Landing Hour {moment(item.actualLandingTime).format("HH:mm A")}
-            </p>
-
-            <p></p>
           </div>
         </div>
       ))}
