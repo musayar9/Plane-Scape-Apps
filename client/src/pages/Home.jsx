@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import FlightList from "../components/FlightList";
+import TravelServices from "../components/TravelServices";
 
 const Home = () => {
   const [flight, setFlight] = useState([]);
@@ -28,8 +29,15 @@ const Home = () => {
   console.log(flight);
 
   return (
-    <div>
-      <FlightList flight={flight} />
+    <div className="max-w-7xl mx-auto">
+      <div className="grid grid-cols-10">
+        <div className="grid col-span-8">
+          <FlightList flight={flight} />
+        </div>
+        <div className="grid col-span-2">
+        <TravelServices/>
+        </div>
+      </div>
     </div>
   );
 };

@@ -8,7 +8,7 @@ import { FaPlane } from "react-icons/fa6";
 import { FlightTime } from "../utils/Functiıon";
 const FlightList = ({ flight }) => {
   return (
-    <div>
+    <div className=" ">
       {flight.map((item) => (
         <div
           key={item.id}
@@ -18,10 +18,10 @@ const FlightList = ({ flight }) => {
             )
               ? "hidden"
               : "block"
-          } bg-gray-100 rounded-md p-4 m-4 gap-4`}
+          } bg-white rounded-xl gap-4 m-4`}
         >
           <div>
-            <div className=" flex items-center justify-between ">
+            <div className=" flex items-center justify-between py-2 px-3 ">
               <div className="flex">
                 {" "}
                 {item.flightDirection === "A" ? (
@@ -46,11 +46,11 @@ const FlightList = ({ flight }) => {
               </p>
             </div>
 
-            <div className="flex items-center gap-2 ">
+            <div className="flex items-center pl-4">
               <Destinations destination={item?.prefixICAO} /> -
               <Destinations destination={item?.route.destinations[0]} />
             </div>
-            <div className="flex items-center justify-between px-4">
+            <div className="flex items-center justify-between px-4 py-2">
               {/* Kalkış Bilgileri */}
 
               <div className="flex items-start flex-col">
@@ -110,6 +110,19 @@ const FlightList = ({ flight }) => {
                   Airline : {item?.route.destinations[0]}
                 </p>
               </div>
+            </div>
+
+            <div className="flex justify-between items-center">
+              <div className="px-4 py-3 ">
+                <p className="text-[#4b0097] text-lg font-bold ">
+                  {" "}
+                  Price: $500
+                </p>
+                <p className="text-xs text-slate-500">Round Trip</p>
+              </div>
+              <button className="bg-[#4b0097] text-sm font-semibold p-4 text-white rounded-tl-lg rounded-br-lg">
+                Book Flight
+              </button>
             </div>
           </div>
         </div>
