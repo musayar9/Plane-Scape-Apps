@@ -5,21 +5,31 @@ import { FaPlaneDeparture } from "react-icons/fa";
 import Destinations from "./Destinations";
 import Airline from "./Airline";
 import { FaPlane } from "react-icons/fa6";
-import { FlightTime } from "../utils/Functiıon";
+
 const FlightList = ({ flight }) => {
+
+const handleBookFlight = (flight)=>{
+  const flightInfo = {
+    scheduleDateTime: flight.scheduleDateTime,
+    estimatedLandingTime: flight.estimatedLandingTime,
+    flightDirection: flight.flightDirection,
+    route: flight.route,
+    flightName: flight.flightName,
+    flightNumber: flight.flightNumber,
+    prefixIATA: flight.prefixIATA,
+    prefixICAO: flight.prefixICAO,
+    airlineCode: flight.airlineCode,
+    publicFlightState: flight.publicFlightState,
+  };
+  console.log("flightInfo", flightInfo)
+}
+
+
+
   return (
-    <div >
+    <div>
       {flight.map((item) => (
-        <div
-          key={item.id}
-          className={`${
-            moment(item.actualLandingTime).isSameOrBefore(
-              moment(item.scheduleDateTime)
-            )
-              ? "hidden"
-              : "block"
-          } bg-white rounded-xl gap-4 m-4`}
-        >
+        <div key={item.id} className={` bg-white rounded-xl gap-4 m-4`}>
           <div>
             <div className=" flex items-center justify-between py-2 px-3 ">
               <div className="flex">
@@ -60,9 +70,7 @@ const FlightList = ({ flight }) => {
                     Departure
                   </span>
                 </p>
-                <p className="text-gray-800 text-lg font-bold">
-                  {moment(item.scheduleDateTime).format("HH:mm A")}
-                </p>
+
                 <p className="text-xs text-gray-500 tracking-wide">
                   Airline : {item?.prefixICAO}
                 </p>
@@ -72,20 +80,17 @@ const FlightList = ({ flight }) => {
 
               {/* Uçuş Bilgileri (Hava yolu ve uçuş mesafesi) */}
               <div className="flex items-center flex-col gap-2">
-              <div  className="flex items-center justify-center font-bold gap-2">
-                <Airline airline={item.prefixIATA} />
-               <hr className="text-[#4b0097] w-4"/> <span className="text-emerald-500 text-xs">{item.flightName}</span>
-              </div>
+                <div className="flex items-center justify-center font-bold gap-2">
+                  <Airline airline={item.prefixIATA} />
+                  <hr className="text-[#4b0097] w-4" />{" "}
+                  <span className="text-emerald-500 text-xs">
+                    {item.flightName}
+                  </span>
+                </div>
                 <FaPlane className="text-[#4b0097]" size={18} />
 
                 <p className="text-sm text-slate-500">
-                  <span>
-                    {" "}
-                    {FlightTime({
-                      scheduleTime: item.scheduleDateTime,
-                      landingTime: item.actualLandingTime,
-                    })}{" "}
-                  </span>
+                  <span> </span>
                   <span>
                     (
                     {item?.route.destinations.length > 1
@@ -106,26 +111,48 @@ const FlightList = ({ flight }) => {
                     Arrival
                   </span>
                 </p>
-                <p className="text-gray-800 text-lg font-bold">
-                  {moment(item.actualLandingTime).format("HH:mm A")}
-                </p>
-                <p className="text-xs text-gray-500 tracking-wide">
-                  Airline : {item?.route.destinations[0]}
-                </p>
+
+                <div className="text-xs flex text-gray-500 tracking-wide">
+                  Airline :{" "}
+                  {item?.route.destinations.length > 1
+                    ? item?.route.destinations.map((d) => (
+                        <p className="pl-1" key={d}>
+                          <span>{d},</span>
+                        </p>
+                      ))
+                    : item?.route.destinations[0]}
+                </div>
               </div>
+            </div>
+            <div className="px-4 py-3">
+              <p className="text-slate-500 text-xs font-semibold">
+                Schedule Time :{" "}
+                {moment.parseZone(item.scheduleDateTime).format("HH:mm A")}
+              </p>{" "}
+              {item.flightDirection === "A" && (
+                <p className="text-slate-500 text-xs font-semibold">
+                  Estimated Landing Time:{" "}
+                  {moment
+                    .parseZone(item.estimatedLandingTime)
+                    .format("HH:mm A")}
+                </p>
+              )}
             </div>
 
             <div className="flex justify-between items-center">
-              <div className="px-4 py-3 ">
+              <div className=" px-4 -mt-3">
                 <p className="text-[#4b0097] text-lg font-bold ">
                   {" "}
                   Price: $500
                 </p>
                 <p className="text-xs text-slate-500">Round Trip</p>
               </div>
-              <button className="bg-[#4b0097] text-sm font-semibold p-4 text-white rounded-tl-lg rounded-br-lg hover:opacity-85 duration-200 ease-linear">
-                Book Flight
-              </button>
+
+              <div className=" flex justify-end" >
+                <button onClick={()=>handleBookFlight(item)} className="bg-[#4b0097] text-sm font-semibold p-4 text-white rounded-tl-lg rounded-br-lg hover:opacity-85 duration-200 ease-linear">
+                  Book Flight
+                </button>
+              </div>
             </div>
           </div>
         </div>

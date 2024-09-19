@@ -1,5 +1,5 @@
 export const FlightTime = ({ scheduleTime, landingTime }) => {
-  console.log(scheduleTime, landingTime);
+
   const scheduleDateTime = new Date(scheduleTime);
   const actualLandingTime = new Date(landingTime);
 
