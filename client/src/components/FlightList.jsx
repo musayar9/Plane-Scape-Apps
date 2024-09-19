@@ -5,26 +5,40 @@ import { FaPlaneDeparture } from "react-icons/fa";
 import Destinations from "./Destinations";
 import Airline from "./Airline";
 import { FaPlane } from "react-icons/fa6";
-
+import axios from "axios";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 const FlightList = ({ flight }) => {
+  const navigate = useNavigate();
 
-const handleBookFlight = (flight)=>{
-  const flightInfo = {
-    scheduleDateTime: flight.scheduleDateTime,
-    estimatedLandingTime: flight.estimatedLandingTime,
-    flightDirection: flight.flightDirection,
-    route: flight.route,
-    flightName: flight.flightName,
-    flightNumber: flight.flightNumber,
-    prefixIATA: flight.prefixIATA,
-    prefixICAO: flight.prefixICAO,
-    airlineCode: flight.airlineCode,
-    publicFlightState: flight.publicFlightState,
+  const handleBookFlight = async (flight) => {
+    const flightInfo = {
+      scheduleDateTime: flight.scheduleDateTime,
+      estimatedLandingTime: flight.estimatedLandingTime,
+      flightDirection: flight.flightDirection,
+      route: flight.route,
+      flightName: flight.flightName,
+      flightNumber: flight.flightNumber,
+      prefixIATA: flight.prefixIATA,
+      prefixICAO: flight.prefixICAO,
+      airlineCode: flight.airlineCode,
+      publicFlightState: flight.publicFlightState,
+    };
+    console.log("flightInfo", flightInfo);
+
+    try {
+      const res = await axios.post(
+        "http://localhost:5000/api/v1/bookFlight",
+        flightInfo
+      );
+      const data = await res.data;
+      console.log(data);
+      toast.success(data.message);
+      navigate("/myFlight");
+    } catch (error) {
+      console.log(error);
+    }
   };
-  console.log("flightInfo", flightInfo)
-}
-
-
 
   return (
     <div>
@@ -148,8 +162,11 @@ const handleBookFlight = (flight)=>{
                 <p className="text-xs text-slate-500">Round Trip</p>
               </div>
 
-              <div className=" flex justify-end" >
-                <button onClick={()=>handleBookFlight(item)} className="bg-[#4b0097] text-sm font-semibold p-4 text-white rounded-tl-lg rounded-br-lg hover:opacity-85 duration-200 ease-linear">
+              <div className=" flex justify-end">
+                <button
+                  onClick={() => handleBookFlight(item)}
+                  className="bg-[#4b0097] text-sm font-semibold p-4 text-white rounded-tl-lg rounded-br-lg hover:opacity-85 duration-200 ease-linear"
+                >
                   Book Flight
                 </button>
               </div>

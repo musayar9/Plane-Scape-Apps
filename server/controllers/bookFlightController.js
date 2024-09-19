@@ -5,7 +5,9 @@ const createBookFlight = async (req, res, next) => {
 
   try {
     await bookFlight.save();
-    res.status(201).json({ message: "flight booked", bookFlight });
+    res
+      .status(201)
+      .json({ message: "Your flight reservation has been made", bookFlight });
   } catch (error) {
     next(error);
   }
