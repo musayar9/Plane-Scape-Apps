@@ -12,7 +12,7 @@ const StarRating = ({ rating }) => {
           className={`w-3 h-3 ${
             index < rating ? "text-[#4b0097]" : "text-gray-400"
           }`}
-        ></FaStar>
+        />
       ))}
     </div>
   );

@@ -26,7 +26,7 @@ const TravelServices = () => {
   ];
 
   return (
-    <div className="flex  flex-col gap-4 mt-4">
+    <div className="flex  flex-col gap-4 my-4">
       {travel.map((item) => (
         <div key={item.id}>
           <div className="flip-card-inner relative">

@@ -23,6 +23,7 @@ const FlightList = ({ flight }) => {
       prefixICAO: flight.prefixICAO,
       airlineCode: flight.airlineCode,
       publicFlightState: flight.publicFlightState,
+      price:500
     };
     console.log("flightInfo", flightInfo);
 
