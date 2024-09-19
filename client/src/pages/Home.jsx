@@ -3,14 +3,36 @@ import axios from "axios";
 import FlightList from "../components/FlightList";
 import TravelServices from "../components/TravelServices";
 import BookYourFlight from "../components/BookYourFlight";
-
+import {useLocation} from "react-router-dom"
 const Home = () => {
   const [flight, setFlight] = useState([]);
+  const [filter, setFilter] = useState({
+  scheduleDate:"",
+  flightDirection:""
+  
+  })
+  
+  const location = useLocation()
 
   useEffect(() => {
+    const urlParams = new URLSearchParams(location.search)
+    
+    const scheduleDateUrl = urlParams.get("scheduleDate")
+    const flightDirectionUrl = urlParams.get("flightDirection");
+  
+      if(scheduleDateUrl || flightDirectionUrl){
+        setFilter({
+        ...filter,
+        scheduleDate:scheduleDateUrl,
+        flightDirection:flightDirectionUrl
+        })
+      }
+      
+      const searchQuery = urlParams.toString()
+  
     const getFlight = async () => {
       const res = await axios.get(
-        `/api/flights?includedelays=false&page=0&sort=%2BscheduleTime`,
+        `/api/flights?${searchQuery}&includedelays=false&page=0&sort=%2BscheduleTime`,
         {
           headers: {
             Accept: "application/json",
@@ -33,7 +55,7 @@ const Home = () => {
     <div className="max-w-7xl mx-auto">
       <div className="grid grid-cols-10">
         <div className="grid col-span-8">
-          <BookYourFlight />
+          <BookYourFlight  filter={filter} setFilter={setFilter}/>
           <div className="grid grid-cols-8">
             <div className="grid col-span-6 ">
             
