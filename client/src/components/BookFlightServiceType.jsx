@@ -1,8 +1,38 @@
+import PropTypes from "prop-types";
 
-const BookFlightServiceType = () => {
+const BookFlightServiceType = ({ serviceType }) => {
+  const checkServiceType = (type) => {
+    let serviceType;
+
+    switch (type) {
+      case "J":
+        serviceType = "Passenger Line";
+        break;
+      case "C":
+        serviceType = "Passenger Charter";
+        break;
+      case "F":
+        serviceType = "Freight Line";
+        break;
+      case "H":
+        serviceType = "Freight Charter";
+        break;
+      default:
+        serviceType = "Unknown Service Type"; // Default değer
+    }
+
+    return serviceType;
+  };
   return (
-    <div>BookFlightServiceType</div>
-  )
-}
+    <div className="pt-1">
+      <p className="text-slate-700 text-sm">Service Type:</p>
+      <p className="text-xs text-slate-500">{checkServiceType(serviceType)}</p>
+    </div>
+  );
+};
 
-export default BookFlightServiceType
+export default BookFlightServiceType;
+
+BookFlightServiceType.propTypes = {
+  serviceType: PropTypes.string,
+};

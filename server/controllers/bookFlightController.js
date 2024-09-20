@@ -22,4 +22,21 @@ const getBookFlight = async (req, res, next) => {
   }
 };
 
-module.exports = { createBookFlight, getBookFlight };
+const deleteBookFlight = async (req, res, next) => {
+  const { id } = req.params;
+  const isBookFlight = await BookFlight.findById({ _id: id });
+
+  try {
+    if (!isBookFlight) {
+      return res
+        .status(400)
+        .json({ message: "No flight regsitered found to delete" });
+    }
+    await BookFlight.findByIdAndDelete({ _id: id });
+    return res.status(200).json({ message: "Flight cancelled" });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { createBookFlight, getBookFlight, deleteBookFlight };

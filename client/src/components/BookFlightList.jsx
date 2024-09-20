@@ -1,53 +1,16 @@
-import axios from "axios";
 import moment from "moment-timezone";
-import { useEffect, useState } from "react";
-import { FaPlaneArrival, FaPlaneDeparture, FaTrash } from "react-icons/fa";
+import { FaPlaneArrival, FaPlaneDeparture } from "react-icons/fa";
 import Airline from "./Airline";
 import { IoIosArrowDown } from "react-icons/io";
 import Destinations from "./Destinations";
 import BookFlightPriceInfo from "./BookFlightPriceInfo";
+import BookFlightServiceType from "./BookFlightServiceType";
+import DeleteButton from "./DeleteButton";
 
-const BookFlightList = () => {
-  const [bookFlightList, setBookFlightList] = useState([]);
+import PropTypes from "prop-types";
 
-  useEffect(() => {
-    const getBookFlight = async () => {
-      try {
-        const res = await axios.get("http://localhost:5000/api/v1/bookFlight");
-        const data = await res.data;
-        console.log(data);
-        setBookFlightList(data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getBookFlight();
-  }, []);
+const BookFlightList = ({ bookFlightList, setBookFlightList }) => {
 
-  const checkServiceType = (type) => {
-    let serviceType;
-
-    switch (type) {
-      case "J":
-        serviceType = "Passenger Line";
-        break;
-      case "C":
-        serviceType = "Passenger Charter";
-        break;
-      case "F":
-        serviceType = "Freight Line";
-        break;
-      case "H":
-        serviceType = "Freight Charter";
-        break;
-      default:
-        serviceType = "Unknown Service Type"; // Default değer
-    }
-
-    return serviceType;
-  };
-
-  console.log("book flight", bookFlightList);
   return (
     <div className="mt-4 mr-3">
       {bookFlightList.length > 0 ? (
@@ -118,14 +81,7 @@ const BookFlightList = () => {
                               : item?.route.destinations[0]}{" "}
                           </p>
                         </div>
-                        <div className="pt-1">
-                          <p className="text-slate-700 text-sm">
-                            Service Type:
-                          </p>
-                          <p className="text-xs text-slate-500">
-                            {checkServiceType(item.serviceType)}
-                          </p>
-                        </div>
+                        <BookFlightServiceType serviceType={item.serviceType} />
                         <div>
                           <div className="flex items-center">
                             <Destinations destination={item?.prefixICAO} />{" "}
@@ -146,21 +102,15 @@ const BookFlightList = () => {
                     </div>
                   </div>
                 </div>
-                
-                
-                <BookFlightPriceInfo price= {item.price}/>
 
-               
+                <BookFlightPriceInfo price={item.price} />
               </div>
 
-              <div className="flex items-center justify-end ">
-                <button className="bg-red-500  text-xs p-2 rounded-tl-lg rounded-br-lg text-white capitalize flex items-center justify-center group">
-                  <span className="group-hover:translate-x-4 group-hover:opacity-0 duration-300 ease-in pl-3 group-hover:pl-0">
-                    cancel flight
-                  </span>
-                  <FaTrash className=" opacity-0 group-hover:-translate-x-8 group-hover:opacity-100 duration-300 ease-in " />
-                </button>
-              </div>
+              <DeleteButton
+                item={item}
+                bookFlightList={bookFlightList}
+                setBookFlightList={setBookFlightList}
+              />
             </div>
           ))}
         </>
@@ -172,3 +122,8 @@ const BookFlightList = () => {
 };
 
 export default BookFlightList;
+BookFlightList.propTypes = {
+
+  bookFlightList: PropTypes.array,
+  setBookFlightList: PropTypes.func,
+};
