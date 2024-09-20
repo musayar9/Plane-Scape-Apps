@@ -6,7 +6,7 @@ const Airline = ({ airline }) => {
 const [airlineInfo, setAirlineInfo] = useState([])
 
   useEffect(() => {
-    if (airline) {
+   
       const getAirline = async () => {
         const res = await axios.get(`/api/airlines/${airline}`, {
           headers: {
@@ -23,7 +23,7 @@ const [airlineInfo, setAirlineInfo] = useState([])
       
       
       getAirline()
-    }
+    
   }, [airline]);
 
 

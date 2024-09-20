@@ -23,7 +23,13 @@ const FlightList = ({ flight }) => {
       prefixICAO: flight.prefixICAO,
       airlineCode: flight.airlineCode,
       publicFlightState: flight.publicFlightState,
-      price:500
+      serviceType: flight.serviceType,
+      price: {
+        economyClass: 500,
+        comfortClass: 800,
+        mainClass: 1000,
+        business: 2000,
+      },
     };
     console.log("flightInfo", flightInfo);
 
@@ -142,13 +148,15 @@ const FlightList = ({ flight }) => {
             <div className="px-4 py-3">
               <p className="text-slate-500 text-xs font-semibold">
                 Schedule Time :{" "}
-                {moment.parseZone(item.scheduleDateTime).format("HH:mm A")}
+                {moment
+                  .tz(item.scheduleDateTime, "Europe/Turkey")
+                  .format("HH:mm A")}
               </p>{" "}
               {item.flightDirection === "A" && (
                 <p className="text-slate-500 text-xs font-semibold">
                   Estimated Landing Time:{" "}
                   {moment
-                    .parseZone(item.estimatedLandingTime)
+                    .tz(item.estimatedLandingTime, "Europe/Turkey")
                     .format("HH:mm A")}
                 </p>
               )}

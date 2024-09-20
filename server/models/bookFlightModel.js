@@ -3,13 +3,18 @@ const mongoose = require("mongoose");
 const BookFlightSchema = new mongoose.Schema(
   {
     airlineCode: { type: Number, required: true },
-    estimatedLandingTime: { type: Date},
+    estimatedLandingTime: { type: Date },
     flightDirection: { type: String, required: true },
     flightName: { type: String, required: true },
     flightNumber: { type: Number, required: true },
     prefixIATA: { type: String, required: true },
     prefixICAO: { type: String, required: true },
-    price: { type: String },
+    price: {
+      economyClass: { type: Number },
+      comfortClass: { type: Number },
+      mainClass: { type: Number },
+      business: { type: Number },
+    },
     publicFlightState: {
       flightStates: [{ type: String }],
     },
@@ -19,6 +24,7 @@ const BookFlightSchema = new mongoose.Schema(
       visa: { type: Boolean, required: true },
     },
     scheduleDateTime: { type: Date, required: true },
+    serviceType: { type: String },
   },
   { timestamps: true }
 );
