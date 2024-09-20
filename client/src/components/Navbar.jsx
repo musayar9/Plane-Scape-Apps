@@ -1,6 +1,7 @@
 import { IoIosAirplane } from "react-icons/io";
-import { FaTag } from "react-icons/fa";
+import { FaHome, FaPlane, FaTag } from "react-icons/fa";
 import { RiEarthFill } from "react-icons/ri";
+import {NavLink} from "react-router-dom"
 const Navbar = () => {
   return (
     <div className="navbar  bg-slate-100">
@@ -15,6 +16,30 @@ const Navbar = () => {
       </div>
 
       <div className="flex z-20 gap-4">
+        <div className="flex items-center justify-center"></div>
+        <NavLink
+          to="/"
+          className={({ isActive }) => {
+            return ` ${
+              isActive ? "text-[#4b0097] " : "text-slate-600"
+            }  font-semibold flex items-center justify-center group`;
+          }}
+        >
+          <FaHome className="text-[#4b0097]" />
+          <span className="pl-2 group-hover:text-[#4b0097]">Home</span>
+        </NavLink>
+        <NavLink
+          to="/myFlight"
+          className={({ isActive }) => {
+            return ` ${
+              isActive ? "text-[#4b0097] " : "text-slate-600"
+            }  font-semibold flex items-center justify-center group`;
+          }}
+        >
+          <FaPlane className="text-[#4b0097]" />
+          <span className="pl-2 group-hover:text-[#4b0097]">My Flight</span>
+        </NavLink>
+
         <div className="flex  items-center justify-center ">
           <FaTag className="text-[#4b0097]" />{" "}
           <span className="pl-2 text-slate-600 font-semibold">Deals</span>
@@ -56,7 +81,9 @@ const Navbar = () => {
               </li>
             </ul>
           </div>
-          <p className="text-slate-600 font-semibold text-sm">Christina Bella</p>
+          <p className="text-slate-600 font-semibold text-sm">
+            Christina Bella
+          </p>
         </div>
       </div>
     </div>

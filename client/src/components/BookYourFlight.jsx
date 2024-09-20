@@ -72,12 +72,12 @@ const BookYourFlight = ({ filter, setFilter }) => {
 
           <div className="relative">
             <select
-            value={filter.flightDirection || ""}
+             
               name="flightDirection"
               className="peer w-full md:w-56 block px-3.5 pb-2.5 pt-2.5 text-sm font-semibold  text-[#4b0097] bg-transparent rounded-r-full border border-[#4b0097] appearance-none focus:outline-none "
               onChange={handleChange}
             >
-              <option  >
+              <option disabled selected>
                 Pick one
               </option>
               <option value="A">Arrival</option>

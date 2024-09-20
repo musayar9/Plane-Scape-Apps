@@ -27,7 +27,7 @@ const [airlineInfo, setAirlineInfo] = useState([])
   }, [airline]);
 
 
-  return <p className="italic text-emerald-500 font-semibold"> {airlineInfo.publicName}</p>;
+  return <p className=" text-emerald-500 font-semibold"> {airlineInfo.publicName}</p>;
 };
 
 export default Airline;
