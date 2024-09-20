@@ -149,14 +149,14 @@ const FlightList = ({ flight }) => {
               <p className="text-slate-500 text-xs font-semibold">
                 Schedule Time :{" "}
                 {moment
-                  .tz(item.scheduleDateTime, "Europe/Turkey")
+                  .tz(item.scheduleDateTime, "Europe/Istanbul")
                   .format("HH:mm A")}
               </p>{" "}
               {item.flightDirection === "A" && (
                 <p className="text-slate-500 text-xs font-semibold">
                   Estimated Landing Time:{" "}
                   {moment
-                    .tz(item.estimatedLandingTime, "Europe/Turkey")
+                    .tz(item.estimatedLandingTime, "Europe/Istanbul")
                     .format("HH:mm A")}
                 </p>
               )}
