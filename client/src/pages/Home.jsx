@@ -1,22 +1,20 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import FlightList from "../components/FlightList";
+import FlightList from "../components/Home/FlightList";
 import TravelServices from "../components/TravelServices";
-import BookYourFlight from "../components/BookYourFlight";
+import BookYourFlight from "../components/Home/BookYourFlight";
 import { useLocation } from "react-router-dom";
 import Loading from "../components/Loding";
 import Error from "../components/Error";
-import FilterFlight from "../components/FilterFlight";
+import FilterFlight from "../components/Home/FlightFilterArea/FilterFlight";
 const Home = () => {
   const [flight, setFlight] = useState([]);
   const [filter, setFilter] = useState({
     scheduleDate: "",
     flightDirection: "",
   });
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  
-  
 
   const location = useLocation();
 
@@ -39,7 +37,7 @@ const Home = () => {
 
     const getFlight = async () => {
       try {
-      setLoading(true)
+        setLoading(true);
         const res = await axios.get(
           `/api/flights?${searchQuery}&includedelays=false&page=0&sort=%2BscheduleTime`,
           {
@@ -53,23 +51,22 @@ const Home = () => {
         );
 
         const data = await res.data.flights;
-        
+
         console.log(res);
         setFlight(data);
-        setLoading(false)
+        setLoading(false);
       } catch (error) {
-      setLoading(false)
-       setError(error.response.data)
+        setLoading(false);
+        setError(error.response.data);
       }
     };
     getFlight();
   }, [location.search]);
   console.log(flight);
-  
-  
-    if (loading) return <Loading />;
 
-    if (error) return <Error message={error} />;
+  if (loading) return <Loading />;
+
+  if (error) return <Error message={error} />;
 
   return (
     <div className="max-w-7xl mx-auto">
@@ -81,7 +78,7 @@ const Home = () => {
               <FlightList flight={flight} />
             </div>
             <div className="grid col-span-2">
-              <FilterFlight/>
+              <FilterFlight />
             </div>
           </div>
         </div>

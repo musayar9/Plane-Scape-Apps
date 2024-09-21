@@ -5,40 +5,40 @@ const StopsFlight = () => {
 
       <div className="flex items-center mb-4 ml-4">
         <input
-          id="default-radio-1"
+          id="stops-flight-1"
           type="radio"
           value=""
-          name="default-radio"
+          name="stops-flight"
           className="w-4 h-4 text-[#4b0097] bg-gray-100 border-gray-300 focus:ring-[#4b0097]  focus:ring-2 "
-          checked
+          defaultChecked
         />
         <label
-          htmlFor="default-radio-1"
-          className="ml-2 text-xs font-semibold text-slate-600"
+          htmlFor="stops-flight-1"
+          className="ml-2 text-[10px] font-semibold text-wrap text-slate-600 flex items-center justify-between  w-48"
         >
-          Nonstops
+          <span>Nanstops</span>
+          <span>$ 230</span>
         </label>
       </div>
       <div className="flex items-center ml-4 mb-4">
         <input
-       
-          id="default-radio-2"
+          id="stops-flight-2"
           type="radio"
           value=""
-          name="default-radio"
+          name="stops-flight"
           className="w-4 h-4 text-[#4b0097] bg-gray-100 border-gray-300 focus:ring-[#4b0097]  focus:ring-2 "
         />
         <label
-          htmlFor="default-radio-2"
-          className="ms-2 text-xs font-semibold text-slate-600 "
+          htmlFor="stops-flight-2"
+          className="ml-2 text-[10px] font-semibold text-wrap text-slate-600 flex items-center justify-between  w-48"
         >
-          1 stops
+          <span> 1 stops</span>
+          <span>$ 230</span>
         </label>
       </div>
 
       <div className="flex items-center ml-4">
         <input
-        
           id="default-radio-3"
           type="radio"
           value=""
@@ -47,9 +47,10 @@ const StopsFlight = () => {
         />
         <label
           htmlFor="default-radio"
-          className="ms-2 text-xs font-semibold text-slate-600 "
+          className="ml-2 text-[10px] font-semibold text-wrap text-slate-600 flex items-center justify-between  w-48"
         >
-          2+ stops
+          <span> 2+ stops</span>
+          <span>$ 230</span>
         </label>
       </div>
     </div>

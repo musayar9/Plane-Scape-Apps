@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
-import BookFlightHeader from "../components/BookFlightHeader";
-import BookFlightList from "../components/BookFlightList";
+
+import BookFlightList from "../components/MyFlight/BookFlightList";
 import TravelServices from "../components/TravelServices";
 
 import Loading from "../components/Loding";
 import Error from "../components/Error";
 
 import axios from "axios";
+import BookFlightHeader from "../components/MyFlight/BookFlightHeader";
 
 const MyFlight = () => {
-
   const [bookFlightList, setBookFlightList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -32,9 +32,7 @@ const MyFlight = () => {
       }
     };
     getBookFlight();
-
   }, []);
-
 
   if (loading) return <Loading />;
 

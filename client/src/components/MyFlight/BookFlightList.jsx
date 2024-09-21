@@ -1,17 +1,15 @@
 import moment from "moment-timezone";
 import { FaPlaneArrival, FaPlaneDeparture } from "react-icons/fa";
-import Airline from "./Airline";
+import Airline from "../Airline";
 import { IoIosArrowDown } from "react-icons/io";
-import Destinations from "./Destinations";
+import Destinations from "../Destinations";
 import BookFlightPriceInfo from "./BookFlightPriceInfo";
 import BookFlightServiceType from "./BookFlightServiceType";
 import DeleteButton from "./DeleteButton";
 
 import PropTypes from "prop-types";
 
-
 const BookFlightList = ({ bookFlightList, setBookFlightList }) => {
-
   return (
     <div className="mt-4 mr-3">
       {bookFlightList?.length > 0 ? (
@@ -124,7 +122,6 @@ const BookFlightList = ({ bookFlightList, setBookFlightList }) => {
 
 export default BookFlightList;
 BookFlightList.propTypes = {
-
   bookFlightList: PropTypes.array,
   setBookFlightList: PropTypes.func,
 };

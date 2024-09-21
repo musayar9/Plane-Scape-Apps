@@ -2,17 +2,14 @@ import PropTypes from "prop-types";
 import moment from "moment";
 import { FaPlaneArrival } from "react-icons/fa";
 import { FaPlaneDeparture } from "react-icons/fa";
-import Destinations from "./Destinations";
-import Airline from "./Airline";
+import Destinations from "../Destinations";
+import Airline from "../Airline";
 import { FaPlane } from "react-icons/fa6";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 const FlightList = ({ flight }) => {
-
-
-
   console.log("flight", flight);
   const navigate = useNavigate();
 
@@ -38,25 +35,20 @@ const FlightList = ({ flight }) => {
       },
     };
 
-
-
-      try {
-        const res = await axios.post(
-          "http://localhost:5000/api/v1/bookFlight",
-          flightInfo
-        );
-        const data = await res.data;
-        console.log(data);
-        toast.success(data.message);
-        navigate("/myFlight");
-      } catch (error) {
-        console.log(error);
-        toast.error("Flight booking failed! Please try again.");
-      }
-    
+    try {
+      const res = await axios.post(
+        "http://localhost:5000/api/v1/bookFlight",
+        flightInfo
+      );
+      const data = await res.data;
+      console.log(data);
+      toast.success(data.message);
+      navigate("/myFlight");
+    } catch (error) {
+      console.log(error);
+      toast.error("Flight booking failed! Please try again.");
+    }
   };
-
-  
 
   return (
     <div>
@@ -187,8 +179,7 @@ const FlightList = ({ flight }) => {
                   onClick={() => handleBookFlight(item)}
                   className="bg-[#4b0097] text-sm font-semibold p-4 text-white rounded-tl-lg rounded-br-lg hover:opacity-85 duration-200 ease-linear"
                 >
-         
-                     Book Flight
+                  Book Flight
                 </button>
               </div>
             </div>
