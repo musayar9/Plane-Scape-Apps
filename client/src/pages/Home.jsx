@@ -6,6 +6,7 @@ import BookYourFlight from "../components/BookYourFlight";
 import { useLocation } from "react-router-dom";
 import Loading from "../components/Loding";
 import Error from "../components/Error";
+import FilterFlight from "../components/FilterFlight";
 const Home = () => {
   const [flight, setFlight] = useState([]);
   const [filter, setFilter] = useState({
@@ -80,7 +81,7 @@ const Home = () => {
               <FlightList flight={flight} />
             </div>
             <div className="grid col-span-2">
-              <div className="w-5">Denem</div>
+              <FilterFlight/>
             </div>
           </div>
         </div>
