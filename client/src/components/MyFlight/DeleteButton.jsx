@@ -15,6 +15,7 @@ const DeleteButton = ({ item, bookFlightList, setBookFlightList }) => {
       const data = res.data;
       const deleteBookFlight = bookFlightList.filter((d)=> d._id !== item._id);
       setBookFlightList(deleteBookFlight)
+      
       toast.success(data.message)
     } catch (error) {
       console.log(error);

@@ -9,8 +9,18 @@ import Error from "../components/Error";
 import axios from "axios";
 import BookFlightHeader from "../components/MyFlight/BookFlightHeader";
 
+//   const getLocalStorage = () => {
+//   try {
+//     const storedData = localStorage.getItem("bookFlight");
+//     return storedData ? JSON.parse(storedData) : [];
+//   } catch (error) {
+//     console.error("Error parsing JSON from localStorage", error);
+//     return []; // Hata varsa boş dizi döner
+//   }
+// };
 const MyFlight = () => {
   const [bookFlightList, setBookFlightList] = useState([]);
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   useEffect(() => {
@@ -19,7 +29,6 @@ const MyFlight = () => {
         setLoading(true);
         const res = await axios.get("http://localhost:5000/api/v1/bookFlight");
         const data = await res.data;
-        console.log(data);
         setBookFlightList(data);
         setLoading(false);
       } catch (error) {
@@ -38,17 +47,18 @@ const MyFlight = () => {
 
   if (error) return <Error message={error} />;
 
+  console.log(bookFlightList);
   return (
-    <div className="max-w-7xl mx-auto">
+    <div className="max-w-7xl mx-auto p-5 md:p-0">
       <BookFlightHeader />
-      <div className="grid grid-cols-10 ">
-        <div className="grid col-span-8">
+      <div className="grid md:grid-cols-10 ">
+        <div className="grid md:col-span-8 order-2 md:order-1">
           <BookFlightList
             bookFlightList={bookFlightList}
             setBookFlightList={setBookFlightList}
           />
         </div>
-        <div className="grid col-span-2">
+        <div className="grid order-1 md:order-2  md:col-span-2">
           <TravelServices />
         </div>
       </div>

@@ -11,7 +11,7 @@ import PropTypes from "prop-types";
 
 const BookFlightList = ({ bookFlightList, setBookFlightList }) => {
   return (
-    <div className="mt-4 mr-3">
+    <div className="mt-4 mr-3 w-max-fit">
       {bookFlightList?.length > 0 ? (
         <>
           {" "}
@@ -37,14 +37,25 @@ const BookFlightList = ({ bookFlightList, setBookFlightList }) => {
                       <p className="text-slate-500 text-xs">
                         {item.flightDirection === "A" ? "Arrival" : "Departure"}
                       </p>
-                      <div className="flex items-center gap-1">
+                      <div className="flex items-center justify-between gap-1">
                         <p className="text-slate-700 text-lg font-semibold">
                           {moment
                             .tz(item.scheduleDateTime, "Europe/Istanbul")
                             .format("HH:mm A")}
                         </p>
+                        <div className="flex items-center">
+                          <Destinations destination={item?.prefixICAO} />{" "}
+                          {item.prefixICAO !== "" && (
+                            <span className="px-1 text-xs text-slate-500">
+                              to
+                            </span>
+                          )}
+                          <Destinations
+                            destination={item?.route.destinations[0]}
+                          />
+                        </div>
                       </div>
-                      <div className="flex space-x-8">
+                      <div className="flex space-x-12">
                         <div>
                           <p className="text-slate-600 font-semibold">
                             {moment(item.scheduleDate)
@@ -52,7 +63,7 @@ const BookFlightList = ({ bookFlightList, setBookFlightList }) => {
                               .format("D MMM YYYY")}
                           </p>
                           <p className="text-xs text-slate-500">
-                            Airline Code: {item.airlineCode}
+                            {item.airlineCode} - {item.flightName}
                           </p>
                         </div>
 
@@ -81,22 +92,6 @@ const BookFlightList = ({ bookFlightList, setBookFlightList }) => {
                           </p>
                         </div>
                         <BookFlightServiceType serviceType={item.serviceType} />
-                        <div>
-                          <div className="flex items-center">
-                            <Destinations destination={item?.prefixICAO} />{" "}
-                            {item.prefixICAO !== "" && (
-                              <span className="px-1 text-xs text-slate-500">
-                                to
-                              </span>
-                            )}
-                            <Destinations
-                              destination={item?.route.destinations[0]}
-                            />
-                          </div>
-                          <p className="text-xs text-slate-500">
-                            {item.flightName}
-                          </p>
-                        </div>
                       </div>
                     </div>
                   </div>

@@ -82,7 +82,7 @@ const Home = () => {
             </div>
           </div>
         </div>
-        <div className="grid col-span-2">
+        <div className="grid col-span-2 ">
           <TravelServices />
         </div>
       </div>
