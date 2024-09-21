@@ -9,14 +9,15 @@ import DeleteButton from "./DeleteButton";
 
 import PropTypes from "prop-types";
 
+
 const BookFlightList = ({ bookFlightList, setBookFlightList }) => {
 
   return (
     <div className="mt-4 mr-3">
-      {bookFlightList.length > 0 ? (
+      {bookFlightList?.length > 0 ? (
         <>
           {" "}
-          {bookFlightList.map((item) => (
+          {bookFlightList?.map((item) => (
             <div key={item._id} className="bg-white rounded-xl gap-4 my-2  ">
               <div className="flex items-center justify-between">
                 <div className="flex items-center ">

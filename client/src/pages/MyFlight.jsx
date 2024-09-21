@@ -2,11 +2,14 @@ import { useEffect, useState } from "react";
 import BookFlightHeader from "../components/BookFlightHeader";
 import BookFlightList from "../components/BookFlightList";
 import TravelServices from "../components/TravelServices";
-import axios from "axios";
+
 import Loading from "../components/Loding";
 import Error from "../components/Error";
 
+import axios from "axios";
+
 const MyFlight = () => {
+
   const [bookFlightList, setBookFlightList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -29,12 +32,13 @@ const MyFlight = () => {
       }
     };
     getBookFlight();
+
   }, []);
 
+
   if (loading) return <Loading />;
-  console.log(error);
-  
-  if(error) return <Error message={error}/>
+
+  if (error) return <Error message={error} />;
 
   return (
     <div className="max-w-7xl mx-auto">

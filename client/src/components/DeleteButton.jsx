@@ -2,7 +2,10 @@ import axios from "axios";
 import PropTypes from "prop-types";
 import { FaTrash } from "react-icons/fa";
 import toast from "react-hot-toast"
+
 const DeleteButton = ({ item, bookFlightList, setBookFlightList }) => {
+
+
   const handleDelete = async () => {
     console.log("item._id", item._id);
     try {

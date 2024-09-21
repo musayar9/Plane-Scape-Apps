@@ -8,22 +8,28 @@ import { FaPlane } from "react-icons/fa6";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+
 const FlightList = ({ flight }) => {
+
+
+
+  console.log("flight", flight);
   const navigate = useNavigate();
 
-  const handleBookFlight = async (flight) => {
+  const handleBookFlight = async (data) => {
     const flightInfo = {
-      scheduleDateTime: flight.scheduleDateTime,
-      estimatedLandingTime: flight.estimatedLandingTime,
-      flightDirection: flight.flightDirection,
-      route: flight.route,
-      flightName: flight.flightName,
-      flightNumber: flight.flightNumber,
-      prefixIATA: flight.prefixIATA,
-      prefixICAO: flight.prefixICAO,
-      airlineCode: flight.airlineCode,
-      publicFlightState: flight.publicFlightState,
-      serviceType: flight.serviceType,
+      scheduleDateTime: data.scheduleDateTime,
+      estimatedLandingTime: data.estimatedLandingTime,
+      flightDirection: data.flightDirection,
+      route: data.route,
+      flightId: data.id,
+      flightName: data.flightName,
+      flightNumber: data.flightNumber,
+      prefixIATA: data.prefixIATA,
+      prefixICAO: data.prefixICAO,
+      airlineCode: data.airlineCode,
+      publicFlightState: data.publicFlightState,
+      serviceType: data.serviceType,
       price: {
         economyClass: 500,
         comfortClass: 800,
@@ -31,25 +37,30 @@ const FlightList = ({ flight }) => {
         business: 2000,
       },
     };
-    console.log("flightInfo", flightInfo);
 
-    try {
-      const res = await axios.post(
-        "http://localhost:5000/api/v1/bookFlight",
-        flightInfo
-      );
-      const data = await res.data;
-      console.log(data);
-      toast.success(data.message);
-      navigate("/myFlight");
-    } catch (error) {
-      console.log(error);
-    }
+
+
+      try {
+        const res = await axios.post(
+          "http://localhost:5000/api/v1/bookFlight",
+          flightInfo
+        );
+        const data = await res.data;
+        console.log(data);
+        toast.success(data.message);
+        navigate("/myFlight");
+      } catch (error) {
+        console.log(error);
+        toast.error("Flight booking failed! Please try again.");
+      }
+    
   };
+
+  
 
   return (
     <div>
-      {flight.map((item) => (
+      {flight?.map((item) => (
         <div key={item.id} className={` bg-white rounded-xl gap-4 m-4`}>
           <div>
             <div className=" flex items-center justify-between py-2 px-3 ">
@@ -176,7 +187,8 @@ const FlightList = ({ flight }) => {
                   onClick={() => handleBookFlight(item)}
                   className="bg-[#4b0097] text-sm font-semibold p-4 text-white rounded-tl-lg rounded-br-lg hover:opacity-85 duration-200 ease-linear"
                 >
-                  Book Flight
+         
+                     Book Flight
                 </button>
               </div>
             </div>
@@ -189,5 +201,5 @@ const FlightList = ({ flight }) => {
 
 export default FlightList;
 FlightList.propTypes = {
-  flight: PropTypes.array.isRequired, // flight'ın bir array olduğunu belirtiyoruz
+  flight: PropTypes.arrayOf(PropTypes.object).isRequired,
 };

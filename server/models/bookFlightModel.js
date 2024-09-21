@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 
 const BookFlightSchema = new mongoose.Schema(
   {
+  
+    flightId:{type:String, required:true},
     airlineCode: { type: Number, required: true },
     estimatedLandingTime: { type: Date },
     flightDirection: { type: String, required: true },

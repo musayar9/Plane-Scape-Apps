@@ -1,6 +1,7 @@
 import { IoIosAirplane } from "react-icons/io";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
+import moment from "moment";
 const BookYourFlight = ({ filter, setFilter }) => {
   const navigate = useNavigate();
 
@@ -20,15 +21,8 @@ const BookYourFlight = ({ filter, setFilter }) => {
     const searchQuery = urlParams.toString();
     navigate(`?${searchQuery}`);
   };
+console.log("flightDire", filter.flightDirection)
 
-  const handleReset = () => {
-    setFilter({
-      scheduleDate: "",
-      flightDirection:""
-
-    });
-    navigate("/");
-  };
   return (
     <div className="bg-white rounded-xl m-4">
       <div className="flex justify-between items-center">
@@ -60,6 +54,11 @@ const BookYourFlight = ({ filter, setFilter }) => {
               name="scheduleDate"
               value={filter.scheduleDate || ""}
               onChange={handleChange}
+              min={
+                moment().isSame(new Date(), "day")
+                  ? moment().format("YYYY-MM-DD")
+                  : ""
+              }
             />
 
             <label
@@ -72,12 +71,12 @@ const BookYourFlight = ({ filter, setFilter }) => {
 
           <div className="relative">
             <select
-             
+              value={filter.flightDirection}
               name="flightDirection"
               className="peer w-full md:w-56 block px-3.5 pb-2.5 pt-2.5 text-sm font-semibold  text-[#4b0097] bg-transparent rounded-r-full border border-[#4b0097] appearance-none focus:outline-none "
               onChange={handleChange}
             >
-              <option disabled selected>
+              <option >
                 Pick one
               </option>
               <option value="A">Arrival</option>
@@ -94,17 +93,13 @@ const BookYourFlight = ({ filter, setFilter }) => {
 
         <div className="flex items-center gap-2">
           <button
+            disabled={
+              filter.scheduleDate === "" || filter.flightDirection === ""
+            }
             type="submit"
-            className="px-4 py-2 rounded-lg text-xs bg-[#4b0097] text-white hover:bg-[#4b00979d] duration-200 transition-colors ease-linear"
+            className="disabled:cursor-not-allowed disabled:opacity-50 px-4 py-2 rounded-lg text-xs bg-[#4b0097] text-white hover:bg-[#4b00979d] duration-200 transition-colors ease-linear"
           >
             Show Flights
-          </button>
-          <button
-            type="button"
-            onClick={handleReset}
-            className="px-4 py-2 text-xs rounded-lg bg-red-600 hover:bg-red-500 duration-200 transition-colors ease-linear text-white"
-          >
-            Reset
           </button>
         </div>
       </form>
