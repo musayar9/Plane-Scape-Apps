@@ -26,20 +26,20 @@ const TravelServices = () => {
   ];
 
   return (
-    <div className=" flex  flex-1 flex-row md:flex-col  gap-4 md:my-4">
+    <div className=" flex  flex-1 flex-row md:flex-col  gap-4 my-4">
       {travel.map((item) => (
-        <div key={item.id} >
+        <div key={item.id}>
           <div className="flip-card-inner relative">
             {" "}
             <div className="group relative flip-card-front   shadow">
               <img
-                className="max-w-full md:w-full min-h-24 md:h-48   rounded-xl   group-hover:scale-110  group-hover:opacity-85 duration-500 ease-linear"
+                className=" w-full h-16 sm:h-24 md:h-48   rounded-xl   group-hover:scale-110  group-hover:opacity-85 duration-500 ease-linear"
                 src={item?.image}
                 alt={item.title}
               />
               <div className="absolute left-4 bottom-4 text-white ">
                 <p className="">{item.icon}</p>
-                <p className="uppercase font-semibold translate-y-0 duration-300 ease-in opacity-0 group-hover:opacity-80 group-hover:translate-y-2">
+                <p className="hidden md:flex uppercase font-semibold translate-y-0 duration-300 ease-in md:opacity-0 md:group-hover:opacity-80 group-hover:translate-y-2">
                   {item.title}
                 </p>
               </div>

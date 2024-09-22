@@ -2,7 +2,7 @@ import PropTypes from "prop-types"
 
 const BookFlightPriceInfo = ({price}) => {
   return (
-    <div className="p-4 flex items-center gap-2 text-xs">
+    <div className="ml-4 md:ml-0 p-4 flex items-center gap-2 text-xs">
       <p className="border rounded-md w-14 h-14 p-1 flex items-center flex-col justify-center font-semibold border-slate-300 text-[#4b0097]">
         ${price.economyClass}
         <span className="text-[10px] text-wrap text-slate-500">Economy</span>

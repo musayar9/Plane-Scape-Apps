@@ -24,9 +24,11 @@ const BookFlightServiceType = ({ serviceType }) => {
     return serviceType;
   };
   return (
-    <div className="pt-1">
-      <p className="text-slate-700 text-sm">Service Type:</p>
-      <p className="text-xs text-slate-500">{checkServiceType(serviceType)}</p>
+    <div className="md:pt-1">
+      <p className="text-slate-700 text-[11px] sm:text-sm">Service Type:</p>
+      <p className="text-[10px] sm:text-xs text-slate-500">
+        {checkServiceType(serviceType)}
+      </p>
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import { IoIosAirplane } from "react-icons/io";
 import { FaHome, FaPlane, FaTag } from "react-icons/fa";
 import { RiEarthFill } from "react-icons/ri";
-import {NavLink} from "react-router-dom"
+import {Link, NavLink} from "react-router-dom"
 const Navbar = () => {
   return (
     <div className="navbar  bg-slate-100">
@@ -22,7 +22,7 @@ const Navbar = () => {
           className={({ isActive }) => {
             return ` ${
               isActive ? "text-[#4b0097] " : "text-slate-600"
-            }  font-semibold flex items-center justify-center group`;
+            }  font-semibold hidden md:flex items-center justify-center group`;
           }}
         >
           <FaHome className="text-[#4b0097]" />
@@ -33,18 +33,18 @@ const Navbar = () => {
           className={({ isActive }) => {
             return ` ${
               isActive ? "text-[#4b0097] " : "text-slate-600"
-            }  font-semibold flex items-center justify-center group`;
+            }  font-semibold hidden md:flex items-center justify-center group`;
           }}
         >
           <FaPlane className="text-[#4b0097]" />
           <span className="pl-2 group-hover:text-[#4b0097]">My Flight</span>
         </NavLink>
 
-        <div className="flex  items-center justify-center ">
+        <div className=" hidden md:flex  items-center justify-center ">
           <FaTag className="text-[#4b0097]" />{" "}
-          <span className="pl-2 text-slate-600 font-semibold">Deals</span>
+          <span className="pl-2 text-slate-600 font-semibold ">Deals</span>
         </div>
-        <div className="flex  items-center justify-center ">
+        <div className=" hidden md:flex  items-center justify-center ">
           <RiEarthFill className="text-[#4b0097]" />{" "}
           <span className="pl-2 text-slate-600 font-semibold">Discover</span>
         </div>
@@ -67,6 +67,12 @@ const Navbar = () => {
               tabIndex={0}
               className="menu menu-sm dropdown-content bg-white rounded-box z-10 mt-3 w-52 p-2 shadow"
             >
+              <li className="flex md:hidden">
+                <Link to="/">Home</Link>
+              </li>
+              <li className="flex md:hidden">
+                <Link to="myFlight">My Flight</Link>
+              </li>
               <li>
                 <a className="justify-between">
                   Profile
@@ -74,14 +80,17 @@ const Navbar = () => {
                 </a>
               </li>
               <li>
-                <a>Settings</a>
+                <a>Deals</a>
+              </li>
+              <li>
+                <a>Discover</a>
               </li>
               <li>
                 <a>Logout</a>
               </li>
             </ul>
           </div>
-          <p className="text-slate-600 font-semibold text-sm">
+          <p className="text-slate-600 font-semibold text-sm hidden md:flex">
             Christina Bella
           </p>
         </div>
