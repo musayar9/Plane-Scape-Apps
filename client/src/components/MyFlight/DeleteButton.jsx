@@ -2,9 +2,11 @@ import axios from "axios";
 import PropTypes from "prop-types";
 import { FaTrash } from "react-icons/fa";
 import toast from "react-hot-toast"
+import { useDispatch } from "react-redux";
+import { getBookFlight } from "../../redux/bookFlightSlice";
 
 const DeleteButton = ({ item, bookFlightList, setBookFlightList }) => {
-
+const dispatch  = useDispatch()
 
   const handleDelete = async () => {
     console.log("item._id", item._id);
@@ -17,6 +19,7 @@ const DeleteButton = ({ item, bookFlightList, setBookFlightList }) => {
       setBookFlightList(deleteBookFlight)
       
       toast.success(data.message)
+      dispatch(getBookFlight())
     } catch (error) {
       console.log(error);
     }

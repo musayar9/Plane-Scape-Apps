@@ -24,7 +24,7 @@ const BookYourFlight = ({ filter, setFilter }) => {
 console.log("flightDire", filter.flightDirection)
 
   return (
-    <div className="bg-white rounded-xl m-4">
+    <div className="bg-white rounded-xl m-4 max-w-sm md:max-w-full">
       <div className="flex justify-between items-center">
         <p className="flex items-center p-2 gap-1 text-slate-700 font-semibold">
           {" "}

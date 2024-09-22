@@ -8,10 +8,14 @@ import { FaPlane } from "react-icons/fa6";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getBookFlight } from "../../redux/bookFlightSlice";
 
 const FlightList = ({ flight }) => {
+  const { bookFlight } = useSelector((state) => state.bookFlight);
   console.log("flight", flight);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleBookFlight = async (data) => {
     const flightInfo = {
@@ -44,14 +48,15 @@ const FlightList = ({ flight }) => {
       console.log(data);
       toast.success(data.message);
       navigate("/myFlight");
+      dispatch(getBookFlight());
     } catch (error) {
       console.log(error);
       toast.error("Flight booking failed! Please try again.");
     }
   };
-
+  console.log("bookFliggt", bookFlight);
   return (
-    <div>
+    <div className="max-w-sm md:max-w-full">
       {flight?.map((item) => (
         <div key={item.id} className={` bg-white rounded-xl gap-4 m-4`}>
           <div>
@@ -60,7 +65,7 @@ const FlightList = ({ flight }) => {
                 {" "}
                 {item.flightDirection === "A" ? (
                   <p className="flex items-center gap-2">
-                    <span className="text-sm text-blue-600 font-semibold tracking-wide">
+                    <span className=" text-sm text-blue-600 font-semibold tracking-wide">
                       Arrival Flight
                     </span>
                     <FaPlaneArrival className="text-blue-700" size={18} />
@@ -75,12 +80,12 @@ const FlightList = ({ flight }) => {
                 )}{" "}
               </div>
 
-              <p className="font-semibold text-slate-600">
+              <p className="font-semibold text-xs md:text-md text-slate-600">
                 {moment(item.scheduleDate).locale("en").format("DD MMMM YYYY")}
               </p>
             </div>
 
-            <div className="flex items-center pl-4">
+            <div className="flex text-xs md:text-md items-center pl-4">
               <Destinations destination={item?.prefixICAO} /> -
               <Destinations destination={item?.route.destinations[0]} />
             </div>
@@ -90,7 +95,7 @@ const FlightList = ({ flight }) => {
               <div className="flex items-start flex-col">
                 <p className="flex items-center">
                   <FaPlaneDeparture className="text-gray-600" />{" "}
-                  <span className="text-sm text-gray-500 font-semibold pl-3">
+                  <span className="hidden md:flex text-sm text-gray-500 font-semibold pl-3">
                     Departure
                   </span>
                 </p>
@@ -100,13 +105,13 @@ const FlightList = ({ flight }) => {
                 </p>
               </div>
 
-              <hr className="border border-[#4b0097] w-24" />
+              <hr className="border border-[#4b0097]  w-8 md:w-24" />
 
               {/* Uçuş Bilgileri (Hava yolu ve uçuş mesafesi) */}
               <div className="flex items-center flex-col gap-2">
                 <div className="flex items-center justify-center font-bold gap-2">
                   <Airline airline={item.prefixIATA} />
-                  <hr className="text-[#4b0097] w-4" />{" "}
+                  <hr className="text-[#4b0097] w-1 md:w-4" />{" "}
                   <span className="text-emerald-500 text-xs">
                     {item.flightName}
                   </span>
@@ -125,13 +130,13 @@ const FlightList = ({ flight }) => {
                 </p>
               </div>
 
-              <hr className="border border-[#4b0097] w-24" />
+              <hr className="border border-[#4b0097] w-8 md:w-24" />
 
               {/* Varış Bilgileri */}
-              <div className="flex items-start flex-col">
+              <div className="flex items-start flex-col pl-4 md:pl-0">
                 <p className="flex items-center">
                   <FaPlaneArrival className="text-gray-600" />{" "}
-                  <span className="text-sm text-gray-500 font-semibold pl-3">
+                  <span className="hidden md:flex text-sm text-gray-500 font-semibold pl-3">
                     Arrival
                   </span>
                 </p>
@@ -167,7 +172,7 @@ const FlightList = ({ flight }) => {
 
             <div className="flex justify-between items-center">
               <div className=" px-4 -mt-3">
-                <p className="text-[#4b0097] text-lg font-bold ">
+                <p className="text-[#4b0097] text-sm md:text-lg font-bold ">
                   {" "}
                   Price: $500
                 </p>
@@ -176,10 +181,13 @@ const FlightList = ({ flight }) => {
 
               <div className=" flex justify-end">
                 <button
+                  disabled={bookFlight?.find((f) => f?.flightId === item.id)}
                   onClick={() => handleBookFlight(item)}
-                  className="bg-[#4b0097] text-sm font-semibold p-4 text-white rounded-tl-lg rounded-br-lg hover:opacity-85 duration-200 ease-linear"
+                  className="disabled:cursor-not-allowed disabled:opacity-70 bg-[#4b0097] text-xs md:text-sm font-semibold p-4 text-white rounded-tl-lg rounded-br-lg hover:opacity-85 duration-200 ease-linear"
                 >
-                  Book Flight
+                  {bookFlight?.find((f) => f?.flightId === item.id)
+                    ? "Reservation Made"
+                    : "Book Flight"}
                 </button>
               </div>
             </div>

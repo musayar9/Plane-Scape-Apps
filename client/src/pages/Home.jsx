@@ -69,20 +69,20 @@ const Home = () => {
   if (error) return <Error message={error} />;
 
   return (
-    <div className="max-w-7xl mx-auto">
-      <div className="grid grid-cols-10">
-        <div className="grid col-span-8">
+    <div className="max-w-7xl mx-auto p-5 md:p-3 lg:p-0">
+      <div className="grid   md:grid-cols-10">
+        <div className="grid md:col-span-8 order-2 md:order-1">
           <BookYourFlight filter={filter} setFilter={setFilter} />
-          <div className="grid grid-cols-8">
-            <div className="grid col-span-6 ">
+          <div className="grid md:grid-cols-8 ">
+            <div className="grid md:col-span-6 ">
               <FlightList flight={flight} />
             </div>
-            <div className="grid col-span-2">
+            <div className="hidden lg:grid col-span-2 ">
               <FilterFlight />
             </div>
           </div>
         </div>
-        <div className="grid col-span-2 ">
+        <div className="hidden md:grid  md:col-span-2  order-1 md:order-2">
           <TravelServices />
         </div>
       </div>

@@ -8,6 +8,8 @@ import Error from "../components/Error";
 
 import axios from "axios";
 import BookFlightHeader from "../components/MyFlight/BookFlightHeader";
+import { useDispatch, useSelector } from "react-redux";
+import { getBookFlight } from "../redux/bookFlightSlice";
 
 //   const getLocalStorage = () => {
 //   try {
@@ -19,28 +21,33 @@ import BookFlightHeader from "../components/MyFlight/BookFlightHeader";
 //   }
 // };
 const MyFlight = () => {
-  const [bookFlightList, setBookFlightList] = useState([]);
+  const { bookFlight, loading, error } = useSelector(
+    (state) => state.bookFlight
+  );
+  const dispatch = useDispatch();
+  const [bookFlightList, setBookFlightList] = useState(bookFlight);
 
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  // const [loading, setLoading] = useState(false);
+  // const [error, setError] = useState("");
   useEffect(() => {
-    const getBookFlight = async () => {
-      try {
-        setLoading(true);
-        const res = await axios.get("http://localhost:5000/api/v1/bookFlight");
-        const data = await res.data;
-        setBookFlightList(data);
-        setLoading(false);
-      } catch (error) {
-        setLoading(false);
-        if (axios.isAxiosError(error)) {
-          setError(error.message);
-        } else {
-          setError("Request Failed");
-        }
-      }
-    };
-    getBookFlight();
+    // const getBookFlight = async () => {
+    //   try {
+    //     setLoading(true);
+    //     const res = await axios.get("http://localhost:5000/api/v1/bookFlight");
+    //     const data = await res.data;
+    //     setBookFlightList(data);
+    //     setLoading(false);
+    //   } catch (error) {
+    //     setLoading(false);
+    //     if (axios.isAxiosError(error)) {
+    //       setError(error.message);
+    //     } else {
+    //       setError("Request Failed");
+    //     }
+    //   }
+    // };
+    // getBookFlight();
+    dispatch(getBookFlight());
   }, []);
 
   if (loading) return <Loading />;
@@ -49,12 +56,12 @@ const MyFlight = () => {
 
   console.log(bookFlightList);
   return (
-    <div className="max-w-7xl mx-auto p-5 md:p-0">
+    <div className="max-w-7xl mx-auto p-5 md:p-3 lg:p-0">
       <BookFlightHeader />
       <div className="grid md:grid-cols-10 ">
         <div className="grid md:col-span-8 order-2 md:order-1">
           <BookFlightList
-            bookFlightList={bookFlightList}
+            bookFlightList={bookFlight}
             setBookFlightList={setBookFlightList}
           />
         </div>

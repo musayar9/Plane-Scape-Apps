@@ -4,8 +4,8 @@ import { RiEarthFill } from "react-icons/ri";
 import {Link, NavLink} from "react-router-dom"
 const Navbar = () => {
   return (
-    <div className="navbar  bg-slate-100">
-      <div className="flex-1 gap-2">
+    <div className="navbar bg-slate-100">
+      <div className="flex-1 flex  gap-2">
         <span
           className="bg-[#4b0097] w-8 h-8 rounded-full flex justify-center
         items-center"
