@@ -1,7 +1,7 @@
 import moment from "moment-timezone";
 import { FaPlaneArrival, FaPlaneDeparture } from "react-icons/fa";
 import Airline from "../Airline";
-import { IoIosArrowDown } from "react-icons/io";
+import { IoIosAirplane, IoIosArrowDown } from "react-icons/io";
 import Destinations from "../Destinations";
 import BookFlightPriceInfo from "./BookFlightPriceInfo";
 import BookFlightServiceType from "./BookFlightServiceType";
@@ -115,7 +115,17 @@ const BookFlightList = ({ bookFlightList, setBookFlightList }) => {
           ))}
         </>
       ) : (
-        <p>You do not have a flight reservation yet</p>
+        <div className="flex flex-col items-center justify-center  bg-white rounded-xl p-8 space-y-4">
+          <IoIosAirplane
+            className="w-20 h-20 p-2 rounded-full text-white bg-[#4b0097]"
+            size={48}
+          />
+          
+
+          <p className="text-2xl text-slate-500 font-semibold">
+            You do not have a flight reservation yet
+          </p>
+        </div>
       )}
     </div>
   );

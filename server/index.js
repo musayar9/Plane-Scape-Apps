@@ -5,19 +5,17 @@ const cookieParser = require("cookie-parser");
 const dotenv = require("dotenv");
 const connectMongoDB = require("./db/connect");
 
-
 // route
-
-const bookFlightRoutes = require("./routes/bookFlightRoute")
-
+const userRoutes = require("./routes/userRoute");
+const bookFlightRoutes = require("./routes/bookFlightRoute");
 
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
 
 dotenv.config();
-
-app.use("/api/v1/bookFlight", bookFlightRoutes)
+app.use("/api/v1/auth", userRoutes);
+app.use("/api/v1/bookFlight", bookFlightRoutes);
 
 const port = process.env.PORT || 5000;
 connectMongoDB();

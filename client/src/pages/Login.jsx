@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const Login = () => {
   return (
-    <div className="mx-auto max-w-sm p-4 space-y-6 my-8 rounded-xl bg-white">
+    <div className="mx-auto max-w-sm p-4 my-8 rounded-xl bg-white">
       <div className="flex items-center justify-center flex-col m-5">
         <span
           className="bg-[#4b0097] w-12 h-12 rounded-full flex justify-center
@@ -58,23 +58,23 @@ const Login = () => {
 
         <button
           type="submit"
-          className="bg-[#4b0097] text-white p-2 hover:translate-y-1 rounded-md shadow-md"
+          className="bg-[#4b0097] text-white p-2 hover:translate-y-1 duration-200 ease-in rounded-md shadow-md"
         >
           Login
         </button>
       </form>
 
-      <div className="flex justify-between my-2">
+      <div className="flex justify-between ">
         <Link
           to="/reset-password"
-          className=" text-xs text-[#4b0097] pl-2 underline hover:text-blue-700 "
+          className=" text-[11px] text-[#4b0097] pl-3 underline hover:text-blue-700 "
         >
           Forget Password?
         </Link>
         <p className="text-xs text-slate-500">
           Do You Have An Account?{" "}
-          <Link to="/sign-up" className="text-[#4b0097] underline pr-2">
-            Sign Up
+          <Link to="/sign-up" className="text-[#4b0097] underline pr-5">
+            Register
           </Link>
         </p>
       </div>
