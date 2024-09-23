@@ -55,7 +55,9 @@ const register = async (req, res, next) => {
 
 const login = async (req, res, next) => {
   /** Client tarafından gönderilen email ve password bilgilerini alıyoruz */
+  console.log(req.body);
   const { email, password } = req.body;
+
   try {
     /** Email adresiyle kullanıcıyı veritabanında arıyoruz */
     if (email === "" || password === "") {

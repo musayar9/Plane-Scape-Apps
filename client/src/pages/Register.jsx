@@ -1,8 +1,49 @@
-import { IoIosAirplane } from "react-icons/io";
-import { Link } from "react-router-dom";
-
-
+import { useState } from "react";
+import { IoIosAirplane, IoIosWarning } from "react-icons/io";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios"
 const Register = () => {
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const navigate = useNavigate()
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+  
+  const handleSubmit = async(e)=>{
+    e.preventDefault();
+    setLoading(true)
+    try {
+    
+      const res = await axios.post(`http://localhost:5000/api/v1/auth/register`, formData);
+      const data = res.data;
+      console.log(data)
+      setLoading(false)
+      navigate("/login")
+      return data
+    } catch (error) {
+      setLoading(false)
+      if(axios.isAxiosError(error)){
+        setError(error.response.data.message)
+        }else{
+        setError("Request failed")
+      }
+      
+      if(error){
+        setTimeout(()=>{
+          setError("")
+        }, 3000)
+      }
+    }
+  }
+console.log(error)
   return (
     <div className="mx-auto max-w-sm p-4  my-8 rounded-xl bg-white">
       <div className="flex items-center justify-center flex-col m-5">
@@ -15,15 +56,17 @@ const Register = () => {
         <h1 className="text-3xl font-semibold  text-slate-600">Register</h1>
       </div>
 
-      <form className="flex flex-col gap-4 p-4 ">
+      <form className="flex flex-col gap-4 p-4 " onSubmit={handleSubmit}>
         <div className="flex  justify-between flex-col md:flex-row gap-2  ">
           <div className="relative">
             <input
               type="text"
-              id="username"
+              id="firstName"
               className="peer w-full md:w-38 block px-3.5 pb-2.5 pt-2.5 text-sm font-semibold  text-slate-500 bg-transparent rounded-md border border-slate-500 appearance-none focus:outline-[#4b0097] "
               placeholder=" "
-              name="username"
+              name="firstName"
+              value={formData.firstName}
+              onChange={handleChange}
             />
             <label
               htmlFor="username"
@@ -35,10 +78,12 @@ const Register = () => {
           <div className="relative ">
             <input
               type="text"
-              id="surname"
+              id="lastName"
               className="peer w-full  md:w-38 block px-3.5 pb-2.5 pt-2.5 text-sm font-semibold  text-slate-500 bg-transparent rounded-md border border-slate-500 appearance-none focus:outline-[#4b0097] "
               placeholder=" "
-              name="surname"
+              name="lastName"
+              value={formData.lastName}
+              onChange={handleChange}
             />
             <label
               htmlFor="surname"
@@ -56,6 +101,8 @@ const Register = () => {
             className="peer w-full block px-3.5 pb-2.5 pt-2.5 text-sm font-semibold  text-slate-500 bg-transparent rounded-md border border-slate-500 appearance-none focus:outline-[#4b0097] "
             placeholder=" "
             name="email"
+            value={formData.email}
+            onChange={handleChange}
           />
           <label
             htmlFor="email"
@@ -72,6 +119,8 @@ const Register = () => {
             className="peer w-full block px-3.5 pb-2.5 pt-2.5 text-sm font-semibold  text-slate-500  bg-transparent rounded-md border border-slate-500 appearance-none focus:outline-[#4b0097] "
             placeholder=" "
             name="password"
+            value={formData.password}
+            onChange={handleChange}
           />
           <label
             htmlFor="password"
@@ -87,19 +136,25 @@ const Register = () => {
           <b>one number</b>.
         </p>
 
-        <div className="text-sm  flex items-center pl-2 gap-2">
-          <input
-            className="border border-slate-500 outline-none text-emerald-600 rounded-sm focus:border-emerald-500"
-            type="checkbox"
-          />
-          Show Password
-        </div>
+        {error && (
+          <div className="flex items-center gap-2  bg-red-500 text-white p-2 rounded-lg">
+            <IoIosWarning />
+            <p className="text-[11px] ">{error}</p>
+          </div>
+        )}
 
         <button
           type="submit"
           className="bg-[#4b0097] text-white p-2 hover:translate-y-1 duration-200 ease-in rounded-md shadow-md"
         >
-          Register
+          {loading ? (
+            <div className="flex items-center justify-center gap-2">
+              <span className="loading loading-infinity loading-xs"></span>
+              <span>Registering</span>
+            </div>
+          ) : (
+            <span>Register</span>
+          )}
         </button>
       </form>
 
@@ -113,6 +168,6 @@ const Register = () => {
       </div>
     </div>
   );
-}
+};
 
-export default Register
+export default Register;
