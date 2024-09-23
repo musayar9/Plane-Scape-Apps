@@ -10,25 +10,23 @@ import BookFlightHeader from "../components/MyFlight/BookFlightHeader";
 import { useDispatch, useSelector } from "react-redux";
 import { getBookFlight } from "../redux/bookFlightSlice";
 
-
 const MyFlight = () => {
   const { bookFlight, loading, error } = useSelector(
     (state) => state.bookFlight
   );
+  const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const [bookFlightList, setBookFlightList] = useState(bookFlight);
 
-
   useEffect(() => {
-
-    dispatch(getBookFlight());
+    dispatch(getBookFlight({userId:user._id}));
   }, []);
 
   if (loading) return <Loading />;
 
   if (error) return <Error message={error} />;
 
-  console.log(bookFlightList);
+  console.log(bookFlightList,);
   return (
     <div className="max-w-7xl mx-auto p-5 md:p-3 lg:p-0">
       <BookFlightHeader />

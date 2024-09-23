@@ -1,5 +1,7 @@
 const User = require("../models/userModel");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+
 const getUsers = async (req, res, next) => {
   const user = await User.find({}).select("-password");
 
@@ -82,7 +84,11 @@ const login = async (req, res, next) => {
     }
     /** Şifre bilgisini kullanıcı verisinden ayırarak geri döndürüyoruz */
     const { password: pass, ...rest } = isUser._doc;
-    return res.status(200).json(rest);
+    
+    return res
+      .status(200)
+  
+      .json(rest);
   } catch (error) {
     /** Hata durumunda bir sonraki middleware'e hatayı iletiriz */
     next(error);

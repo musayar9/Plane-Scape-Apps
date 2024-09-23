@@ -40,7 +40,7 @@ const FlightList = ({ flight }) => {
         business: 2000,
       },
     };
-console.log(flightInfo)
+    console.log(flightInfo);
     try {
       const res = await axios.post(
         "http://localhost:5000/api/v1/bookFlight",
@@ -50,7 +50,7 @@ console.log(flightInfo)
       console.log(data);
       toast.success(data.message);
       navigate("/myFlight");
-      dispatch(getBookFlight());
+      dispatch(getBookFlight({userId:user._id}));
     } catch (error) {
       console.log(error);
       toast.error("Flight booking failed! Please try again.");
@@ -183,11 +183,15 @@ console.log(flightInfo)
 
               <div className=" flex justify-end">
                 <button
-                  disabled={bookFlight?.find((f) => f?.flightId === item.id)}
+                  disabled={
+                    bookFlight.length > 0 &&
+                    bookFlight?.find((f) => f?.flightId === item.id)
+                  }
                   onClick={() => handleBookFlight(item)}
                   className="disabled:cursor-not-allowed disabled:opacity-70 bg-[#4b0097] text-xs md:text-sm font-semibold p-4 text-white rounded-tl-lg rounded-br-lg hover:opacity-85 duration-200 ease-linear"
                 >
-                  {bookFlight?.find((f) => f?.flightId === item.id)
+                  {bookFlight.length > 0 &&
+                  bookFlight?.find((f) => f?.flightId === item.id)
                     ? "Reservation Made"
                     : "Book Flight"}
                 </button>

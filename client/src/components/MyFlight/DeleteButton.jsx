@@ -1,12 +1,13 @@
 import axios from "axios";
 import PropTypes from "prop-types";
 import { FaTrash } from "react-icons/fa";
-import toast from "react-hot-toast"
-import { useDispatch } from "react-redux";
+import toast from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
 import { getBookFlight } from "../../redux/bookFlightSlice";
 
 const DeleteButton = ({ item, bookFlightList, setBookFlightList }) => {
-const dispatch  = useDispatch()
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.user);
 
   const handleDelete = async () => {
     console.log("item._id", item._id);
@@ -15,11 +16,11 @@ const dispatch  = useDispatch()
         `http://localhost:5000/api/v1/bookFlight/${item._id}`
       );
       const data = res.data;
-      const deleteBookFlight = bookFlightList.filter((d)=> d._id !== item._id);
-      setBookFlightList(deleteBookFlight)
-      
-      toast.success(data.message)
-      dispatch(getBookFlight())
+      const deleteBookFlight = bookFlightList.filter((d) => d._id !== item._id);
+      setBookFlightList(deleteBookFlight);
+
+      toast.success(data.message);
+      dispatch(getBookFlight({ userId: user._id }));
     } catch (error) {
       console.log(error);
     }

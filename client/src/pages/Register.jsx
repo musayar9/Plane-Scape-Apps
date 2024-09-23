@@ -132,8 +132,8 @@ const Register = () => {
             <input
               type={showPassword ? "text" : "password"}
               id="password"
-              className="peer w-full block px-3.5 pb-2.5 pt-2.5 text-sm font-semibold  text-slate-500  bg-transparent rounded-md border border-slate-500 appearance-none focus:outline-[#4b0097] "
-              placeholder=" "
+              className="peer w-full placeholder:font-normal placeholder:text-slate-500 block px-3.5 pb-2.5 pt-2.5 text-sm font-semibold  text-slate-500  bg-transparent rounded-md border border-slate-500 appearance-none focus:outline-[#4b0097] "
+              placeholder="Password "
               name="password"
               value={formData.password}
               onChange={handleChange}

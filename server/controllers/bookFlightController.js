@@ -1,7 +1,6 @@
 const BookFlight = require("../models/BookFlightModel");
 
 const createBookFlight = async (req, res, next) => {
-
   const bookFlight = new BookFlight({ ...req.body });
 
   try {
@@ -17,6 +16,26 @@ const createBookFlight = async (req, res, next) => {
 const getBookFlight = async (req, res, next) => {
   const bookFlight = await BookFlight.find({}).sort({ createdAt: -1 });
   try {
+    res.status(200).json(bookFlight);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getBookFlightUserId = async (req, res, next) => {
+  try {
+    const bookFlight = await BookFlight.find({
+      userId: req.params.userId,
+    }).sort({
+      createdAt: -1,
+    });
+
+    if (!bookFlight) {
+      return res
+        .status(404)
+        .json({ message: "No booking found for this user." });
+    }
+console.log(bookFlight)
     res.status(200).json(bookFlight);
   } catch (error) {
     next(error);
@@ -40,4 +59,9 @@ const deleteBookFlight = async (req, res, next) => {
   }
 };
 
-module.exports = { createBookFlight, getBookFlight, deleteBookFlight };
+module.exports = {
+  createBookFlight,
+  getBookFlight,
+  deleteBookFlight,
+  getBookFlightUserId,
+};

@@ -1,12 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export const getBookFlight = createAsyncThunk("bookFlight/getBookFlight" , async()=>{
+export const getBookFlight = createAsyncThunk("bookFlight/getBookFlight" , async({userId})=>{
     
     try {
-        const res = await axios.get("http://localhost:5000/api/v1/bookFlight");
-        const data = await res.data;
-        return data
+        const res = await axios.get(`http://localhost:5000/api/v1/bookFlight/${userId}`);
+     console.log(res.data,"clkdsvmfjv")
+        return res.data
     } catch (error) {
         throw new Error(error)
     }
@@ -23,7 +23,16 @@ const initialState = {
 const bookFlightSlice = createSlice({
 name:"bookFlight",
 initialState,
-reducers:{},
+reducers:{
+removeBookFlight:(state)=>{
+   state.loading=false;
+   
+   state.bookFlight=[];
+   state.error=""
+   
+}
+
+},
 extraReducers:(builder)=>{
     builder
         .addCase(getBookFlight.pending, (state)=>{
@@ -43,5 +52,5 @@ extraReducers:(builder)=>{
 
 
 
-
+export const  {removeBookFlight} = bookFlightSlice.actions
  export default bookFlightSlice.reducer

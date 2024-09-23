@@ -8,6 +8,8 @@ import Loading from "../components/Loding";
 import Error from "../components/Error";
 import FilterFlight from "../components/Home/FlightFilterArea/FilterFlight";
 const Home = () => {
+
+
   const [flight, setFlight] = useState([]);
   const [filter, setFilter] = useState({
     scheduleDate: "",

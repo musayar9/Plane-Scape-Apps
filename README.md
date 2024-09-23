@@ -198,8 +198,8 @@ yarn start
 ### 2.a) İstemci Tarafı (Client Side)
 
 ```javascript
-VITE_APP_ID = "<Your> Schipol Api Id"
-VITE_APP_KEY = "<Your> Schipol Api Key"
+VITE_APP_ID = "<Your Schipol Api Id> "
+VITE_APP_KEY = "<Your  Schipol Api Key>"
 ```
 
 ### 2.b) Uygulamayı istemci tarafında ayağı kaldırın - Run the app locally:
