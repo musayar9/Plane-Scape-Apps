@@ -10,7 +10,6 @@ const DeleteButton = ({ item, bookFlightList, setBookFlightList }) => {
   const { user } = useSelector((state) => state.user);
 
   const handleDelete = async () => {
-    console.log("item._id", item._id);
     try {
       const res = await axios.delete(
         `http://localhost:5000/api/v1/bookFlight/${item._id}`
@@ -22,7 +21,11 @@ const DeleteButton = ({ item, bookFlightList, setBookFlightList }) => {
       toast.success(data.message);
       dispatch(getBookFlight({ userId: user._id }));
     } catch (error) {
-      console.log(error);
+      if (axios.isAxiosError(error)) {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error("Request Failed");
+      }
     }
   };
 

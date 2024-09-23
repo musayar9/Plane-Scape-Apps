@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+
+@layer components{
+  .custom-input{
+    @apply  block px-3.5 pb-2.5 pt-2.5 text-sm font-semibold  text-slate-500 bg-transparent  border border-slate-500 appearance-none focus:outline-[#4b0097]
+  
+  }
+}
+
 body {
   background-color: #f1f5f9;
 }

@@ -87,7 +87,6 @@ const login = async (req, res, next) => {
     
     return res
       .status(200)
-  
       .json(rest);
   } catch (error) {
     /** Hata durumunda bir sonraki middleware'e hatayı iletiriz */

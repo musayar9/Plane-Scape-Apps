@@ -8,9 +8,13 @@ const {
 
 const router = express.Router();
 
+// GET isteği ile tüm uçuş rezervasyonlarını getiren route
 router.get("/", getBookFlight);
-router.get("/:userId", getBookFlightUserId)
+// GET isteği ile userId'ye göre uçuş rezervasyonlarını getiren route
+router.get("/:userId", getBookFlightUserId);
+// POST isteği ile uçuş rezervasyon kaydı yapan route
 router.post("/", createBookFlight);
-router.delete("/:id", deleteBookFlight)
+// DELETE isteği ile params dan gelen id'ye uçuş rezervasyonun silme route
+router.delete("/:id", deleteBookFlight);
 
-module.exports = router;
+module.exports = router; // router dışarı aktarıyoruz diğer dosyalarda da kullanılabilsin diye

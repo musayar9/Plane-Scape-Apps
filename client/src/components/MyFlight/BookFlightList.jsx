@@ -6,7 +6,6 @@ import Destinations from "../Destinations";
 import BookFlightPriceInfo from "./BookFlightPriceInfo";
 import BookFlightServiceType from "./BookFlightServiceType";
 import DeleteButton from "./DeleteButton";
-
 import PropTypes from "prop-types";
 
 const BookFlightList = ({ bookFlightList, setBookFlightList }) => {

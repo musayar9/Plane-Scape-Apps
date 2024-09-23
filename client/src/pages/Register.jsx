@@ -3,6 +3,7 @@ import { IoIosAirplane, IoIosWarning, IoMdEyeOff } from "react-icons/io";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { FaEye } from "react-icons/fa";
+import FormInput from "../components/FormInput";
 const Register = () => {
   const [formData, setFormData] = useState({
     firstName: "",
@@ -63,89 +64,66 @@ const Register = () => {
       <form className="flex flex-col gap-4 p-4 " onSubmit={handleSubmit}>
         <div className="flex  justify-between flex-col md:flex-row gap-2  ">
           <div className="relative">
-            <input
+            <FormInput
               type="text"
               id="firstName"
-              className="peer w-full md:w-38 block px-3.5 pb-2.5 pt-2.5 text-sm font-semibold  text-slate-500 bg-transparent rounded-md border border-slate-500 appearance-none focus:outline-[#4b0097] "
               placeholder=" "
               name="firstName"
               value={formData.firstName}
               onChange={handleChange}
+              styles="custom-input peer rounded-md w-full md:w-38"
+              label={"First Name"}
             />
-            <label
-              htmlFor="username"
-              className="flex  absolute text-sm text-slate-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2  peer-focus:text-[#4b0097]   peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2  peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
-            >
-              First Name
-            </label>
           </div>
-          <div className="relative ">
-            <input
+          <div className="relative">
+            <FormInput
               type="text"
               id="lastName"
-              className="peer w-full  md:w-38 block px-3.5 pb-2.5 pt-2.5 text-sm font-semibold  text-slate-500 bg-transparent rounded-md border border-slate-500 appearance-none focus:outline-[#4b0097] "
               placeholder=" "
               name="lastName"
               value={formData.lastName}
               onChange={handleChange}
+              styles="custom-input peer rounded-md w-full md:w-38"
+              label={"Last Name"}
             />
-            <label
-              htmlFor="surname"
-              className="flex  absolute text-sm text-slate-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2  peer-focus:text-[#4b0097]   peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2  peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
-            >
-              Last Name
-            </label>
           </div>
         </div>
-
-        <div className="relative ">
-          <input
+        <div className="relative">
+          <FormInput
             type="email"
             id="email"
-            className="peer w-full block px-3.5 pb-2.5 pt-2.5 text-sm font-semibold  text-slate-500 bg-transparent rounded-md border border-slate-500 appearance-none focus:outline-[#4b0097] "
+            styles="custom-input peer  w-full rounded-md"
             placeholder=" "
             name="email"
             value={formData.email}
             onChange={handleChange}
+            label="E-mail"
           />
-          <label
-            htmlFor="email"
-            className="flex  absolute text-sm text-slate-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2  peer-focus:text-[#4b0097]   peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2  peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
-          >
-            E-mail
-          </label>
         </div>
 
         <div className="relative ">
-          <div className="relative">
-            <button
-              type="button"
-              onClick={() => setShowPassword(!showPassword)}
-              className="absolute inset-y-0 end-0 flex items-center pr-3.5 pointer-events-auto"
-            >
-              {showPassword ? (
-                <FaEye className="w-5 h-5 text-gray-800 dark:text-gray-400" />
-              ) : (
-                <IoMdEyeOff className="w-5 h-5 text-gray-500 dark:text-gray-400" />
-              )}
-            </button>
-            <input
-              type={showPassword ? "text" : "password"}
-              id="password"
-              className="peer w-full placeholder:font-normal placeholder:text-slate-500 block px-3.5 pb-2.5 pt-2.5 text-sm font-semibold  text-slate-500  bg-transparent rounded-md border border-slate-500 appearance-none focus:outline-[#4b0097] "
-              placeholder="Password "
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-            />
-          </div>
-
-          <label
-            htmlFor="password"
-            className="flex  absolute text-sm text-slate-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2  peer-focus:text-[#4b0097] peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2  peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            className="absolute inset-y-4 end-1 flex items-center pr-3.5 pointer-events-auto"
           >
-            Password
-          </label>
+            {showPassword ? (
+              <FaEye className="w-5 h-5 text-gray-800 dark:text-gray-400" />
+            ) : (
+              <IoMdEyeOff className="w-5 h-5 text-gray-500 dark:text-gray-400" />
+            )}
+          </button>
+
+          <FormInput
+            type={showPassword ? "text" : "password"}
+            id="password"
+            styles="custom-input peer  w-full rounded-md"
+            placeholder=" "
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            label="Password"
+          />
         </div>
         <p className="text-[9px] text-slate-600   -mt-2">
           The password must be <b>8 to 12 characters long</b>, and it must
