@@ -13,12 +13,14 @@ import { getBookFlight } from "../../redux/bookFlightSlice";
 
 const FlightList = ({ flight }) => {
   const { bookFlight } = useSelector((state) => state.bookFlight);
+  const { user } = useSelector((state) => state.user);
   console.log("flight", flight);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleBookFlight = async (data) => {
     const flightInfo = {
+      userId: user?._id,
       scheduleDateTime: data.scheduleDateTime,
       estimatedLandingTime: data.estimatedLandingTime,
       flightDirection: data.flightDirection,
@@ -38,7 +40,7 @@ const FlightList = ({ flight }) => {
         business: 2000,
       },
     };
-
+console.log(flightInfo)
     try {
       const res = await axios.post(
         "http://localhost:5000/api/v1/bookFlight",

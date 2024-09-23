@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { IoIosAirplane, IoIosWarning } from "react-icons/io";
+import { IoIosAirplane, IoIosWarning, IoMdEyeOff } from "react-icons/io";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios"
+import axios from "axios";
+import { FaEye } from "react-icons/fa";
 const Register = () => {
   const [formData, setFormData] = useState({
     firstName: "",
@@ -11,39 +12,42 @@ const Register = () => {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const navigate = useNavigate()
+  const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-  
-  const handleSubmit = async(e)=>{
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true)
+    setLoading(true);
     try {
-    
-      const res = await axios.post(`http://localhost:5000/api/v1/auth/register`, formData);
+      const res = await axios.post(
+        `http://localhost:5000/api/v1/auth/register`,
+        formData
+      );
       const data = res.data;
-      console.log(data)
-      setLoading(false)
-      navigate("/login")
-      return data
+      console.log(data);
+      setLoading(false);
+      navigate("/login");
+      return data;
     } catch (error) {
-      setLoading(false)
-      if(axios.isAxiosError(error)){
-        setError(error.response.data.message)
-        }else{
-        setError("Request failed")
+      setLoading(false);
+      if (axios.isAxiosError(error)) {
+        setError(error.response.data.message);
+      } else {
+        setError("Request failed");
       }
-      
-      if(error){
-        setTimeout(()=>{
-          setError("")
-        }, 3000)
+
+      if (error) {
+        setTimeout(() => {
+          setError("");
+        }, 3000);
       }
     }
-  }
-console.log(error)
+  };
+  console.log(error);
   return (
     <div className="mx-auto max-w-sm p-4  my-8 rounded-xl bg-white">
       <div className="flex items-center justify-center flex-col m-5">
@@ -113,15 +117,29 @@ console.log(error)
         </div>
 
         <div className="relative ">
-          <input
-            type={"text"}
-            id="password"
-            className="peer w-full block px-3.5 pb-2.5 pt-2.5 text-sm font-semibold  text-slate-500  bg-transparent rounded-md border border-slate-500 appearance-none focus:outline-[#4b0097] "
-            placeholder=" "
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-          />
+          <div className="relative">
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute inset-y-0 end-0 flex items-center pr-3.5 pointer-events-auto"
+            >
+              {showPassword ? (
+                <FaEye className="w-5 h-5 text-gray-800 dark:text-gray-400" />
+              ) : (
+                <IoMdEyeOff className="w-5 h-5 text-gray-500 dark:text-gray-400" />
+              )}
+            </button>
+            <input
+              type={showPassword ? "text" : "password"}
+              id="password"
+              className="peer w-full block px-3.5 pb-2.5 pt-2.5 text-sm font-semibold  text-slate-500  bg-transparent rounded-md border border-slate-500 appearance-none focus:outline-[#4b0097] "
+              placeholder=" "
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+            />
+          </div>
+
           <label
             htmlFor="password"
             className="flex  absolute text-sm text-slate-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2  peer-focus:text-[#4b0097] peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2  peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"

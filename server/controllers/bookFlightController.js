@@ -1,6 +1,7 @@
 const BookFlight = require("../models/BookFlightModel");
 
 const createBookFlight = async (req, res, next) => {
+
   const bookFlight = new BookFlight({ ...req.body });
 
   try {

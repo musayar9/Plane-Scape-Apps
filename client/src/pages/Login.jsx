@@ -9,6 +9,7 @@ const Login = () => {
     password: "",
   });
   const [errMsg, setErrMsg] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const { user, loading } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
@@ -23,20 +24,21 @@ const Login = () => {
     dispatch(login(formData));
   };
 
-useEffect(() => {
-  if (user) {
-   
-    if (user.response?.status !== 404 && user.response?.status !== 400) {
-      if (user !== null) {
-        navigate("/");
-      }
-    } else {
-  
-      setErrMsg(user?.response?.data?.message);
-    }
-  }
-}, [user]);
+  useEffect(() => {
+    if (user) {
+      if (user.response?.status !== 404 && user.response?.status !== 400) {
+        if (user !== null) {
+          navigate("/");
+        }
+      } else {
+        setErrMsg(user?.response?.data?.message);
 
+        setTimeout(() => {
+          setErrMsg("");
+        }, 3000);
+      }
+    }
+  }, [user]);
 
   return (
     <div className="mx-auto max-w-sm p-4 my-8 rounded-xl bg-white">
@@ -71,7 +73,7 @@ useEffect(() => {
 
         <div className="relative ">
           <input
-            type={"text"}
+            type={showPassword ? "text" : "password"}
             id="password"
             className="peer w-full block px-3.5 pb-2.5 pt-2.5 text-sm font-semibold  text-slate-500  bg-transparent rounded-md border border-slate-500 appearance-none focus:outline-[#4b0097] "
             placeholder=" "
@@ -91,6 +93,7 @@ useEffect(() => {
           <input
             className="border border-slate-500 outline-none text-emerald-600 rounded-sm focus:border-emerald-500"
             type="checkbox"
+            onChange={() => setShowPassword(!showPassword)}
           />
           <span className="text-slate-600">Show Password</span>
         </div>
@@ -125,7 +128,7 @@ useEffect(() => {
         </Link>
         <p className="text-xs text-slate-500">
           Do You Have An Account?{" "}
-          <Link to="/sign-up" className="text-[#4b0097] underline pr-5">
+          <Link to="/register" className="text-[#4b0097] underline pr-5">
             Register
           </Link>
         </p>
