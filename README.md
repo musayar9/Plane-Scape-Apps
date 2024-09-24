@@ -1,6 +1,7 @@
 ## Plane Scape
 
 
+https://github.com/user-attachments/assets/4dca0613-758f-420d-ad58-0c2078ab6451
 
 
 ## Sunucu Tarafında Kullanılan Teknolojiler
