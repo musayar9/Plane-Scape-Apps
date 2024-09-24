@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import NotFound from "../assets/images/error.svg";
 
+// Error componenti, hata mesajını ve not found görüntüsünü ekranda gösterir
 const Error = ({ message }) => {
   return (
     <div className="max-w-md mx-auto flex items-center justify-center flex-col my-12">

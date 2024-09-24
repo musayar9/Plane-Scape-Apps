@@ -12,13 +12,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { getBookFlight } from "../../redux/bookFlightSlice";
 
 const FlightList = ({ flight }) => {
+  // redux'tan bookFlight ve user state'lerini alıyoruz
   const { bookFlight } = useSelector((state) => state.bookFlight);
   const { user } = useSelector((state) => state.user);
-  console.log("flight", flight);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); // redux'tan dispatch fonksiyonunu alıyoruz
 
+  // uçuş rezervasyonu işlemi yapmak için handleBookFlight fonksiyonu  tanımlıyoruz
   const handleBookFlight = async (data) => {
+    // uçuş bilgilerini bir içerisinde tutuyoruz
     const flightInfo = {
       userId: user?._id,
       scheduleDateTime: data.scheduleDateTime,
@@ -42,23 +44,32 @@ const FlightList = ({ flight }) => {
     };
     console.log(flightInfo);
     try {
+      // Uçuş rezervasyonu yapmak için API'ye POST isteği gönderiyoruz
       const res = await axios.post(
         "http://localhost:5000/api/v1/bookFlight",
         flightInfo
       );
+      // API'den dönen verileri alıyoruz
       const data = await res.data;
-      console.log(data);
+      // post işlemi başarılı ise data'dan dönen mesajı göstermek için toast kullanıyoruz
       toast.success(data.message);
+      // Başarılı rezervasyon sonrası /myFlight sayfasına yönlendiriyoruz
       navigate("/myFlight");
-      dispatch(getBookFlight({userId:user._id}));
+      // Redux action ile bookFlight state'ini güncellemek için dispatch kullanıyoruz
+      dispatch(getBookFlight({ userId: user._id }));
     } catch (error) {
-      console.log(error);
-      toast.error("Flight booking failed! Please try again.");
+      // Hata mesajını kullanıcıya göstermek için toast kullanıyoruz
+      if (axios.isAxiosError(error)) {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error("Flight booking failed! Please try again.");
+      }
     }
   };
-  console.log("bookFliggt", bookFlight);
+
   return (
     <div className="max-w-sm md:max-w-full">
+      {/* props olarak geçtiğimiz flight değerini burada mapliyoruz */}
       {flight?.map((item) => (
         <div key={item.id} className={` bg-white rounded-xl gap-4 m-4`}>
           <div>
@@ -103,7 +114,8 @@ const FlightList = ({ flight }) => {
                 </p>
 
                 <p className="text-xs text-gray-500 tracking-wide">
-                  Airline : {item?.prefixICAO}
+                  {/* kalkış yapılan uçuşun havalimanı bilgisi*/}
+                  {item?.prefixICAO}
                 </p>
               </div>
 
@@ -112,16 +124,18 @@ const FlightList = ({ flight }) => {
               {/* Uçuş Bilgileri (Hava yolu ve uçuş mesafesi) */}
               <div className="flex items-center flex-col gap-2">
                 <div className="flex items-center justify-center font-bold gap-2">
+                  {/* kullanılan havalimanın bilgisi*/}
                   <Airline airline={item.prefixIATA} />
                   <hr className="text-[#4b0097] w-1 md:w-4" />{" "}
                   <span className="text-emerald-500 text-xs">
+                    {/* yapılan uçuşun adı */}
                     {item.flightName}
                   </span>
                 </div>
                 <FaPlane className="text-[#4b0097]" size={18} />
 
                 <p className="text-sm text-slate-500">
-                  <span> </span>
+                  {/**uçuşun aktarmalımı, aktarmasızmı olduğu durumu ele alıyoruz */}
                   <span>
                     (
                     {item?.route.destinations.length > 1
@@ -144,6 +158,7 @@ const FlightList = ({ flight }) => {
                 </p>
 
                 <div className="text-xs flex text-gray-500 tracking-wide">
+                  {/* iniş yapılan havalimanı bilgileri */}
                   Airline :{" "}
                   {item?.route.destinations.length > 1
                     ? item?.route.destinations.map((d) => (
@@ -157,11 +172,13 @@ const FlightList = ({ flight }) => {
             </div>
             <div className="px-4 py-3">
               <p className="text-slate-500 text-xs font-semibold">
+                {/* uçuş için planlanan saati moment kütüphanesini kullanarak istanbul saatine göre formatkıyoruz */}
                 Schedule Time :{" "}
                 {moment
                   .tz(item.scheduleDateTime, "Europe/Istanbul")
                   .format("HH:mm A")}
               </p>{" "}
+              {/* tahmini iniş zamanına göre saati formatlıyoruz */}
               {item.flightDirection === "A" && (
                 <p className="text-slate-500 text-xs font-semibold">
                   Estimated Landing Time:{" "}
@@ -175,13 +192,19 @@ const FlightList = ({ flight }) => {
             <div className="flex justify-between items-center">
               <div className=" px-4 -mt-3">
                 <p className="text-[#4b0097] text-sm md:text-lg font-bold ">
-                  {" "}
+                  {/* uçuş fiyatı */}
                   Price: $500
                 </p>
                 <p className="text-xs text-slate-500">Round Trip</p>
               </div>
 
               <div className=" flex justify-end">
+                {/* 
+              burada daha önceden uçuş rezervasyonu yapılmışmı onun durumunu kontrol ediyoruz.
+              bookFlight state içinde uçuş rezervasyonlarımız tutuluyor. Bu state içinde daha
+              rezervasyon yapılmış uçuşumuz var ise ekranda reservation made yazısı gösteriliyor 
+              eğer daha önceden rezervasyon yapılmamış ise book flight yazısı gözüküyor
+              */}
                 <button
                   disabled={
                     bookFlight.length > 0 &&

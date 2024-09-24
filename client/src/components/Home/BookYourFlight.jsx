@@ -3,25 +3,25 @@ import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
 const BookYourFlight = ({ filter, setFilter }) => {
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // navigate sayfa yönlendirmeleri için kullanıyourz
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-
-    console.log(name, value);
-    setFilter({ ...filter, [name]: value });
+    //ınput alanlarındaki değişiklikler yakalamak için bir handleChange fonksiyonu oluşturduk
+    const { name, value } = e.target; // ınput alanından gelen name ve value değerlerini alıyoruz
+    setFilter({ ...filter, [name]: value }); // Filtre state'ini güncelliyoruz.
   };
+
+  // Form gönderimi için handleSubmit fonksiyonu oluşturduk
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const urlParams = new URLSearchParams(location.search);
-    urlParams.set("scheduleDate", filter.scheduleDate || "");
-    urlParams.set("flightDirection", filter.flightDirection || "");
+    const urlParams = new URLSearchParams(location.search); // URL parametrelerini almak için URLSearchParams API'sini kullanıyoruz
+    urlParams.set("scheduleDate", filter.scheduleDate || ""); // Eğer scheduleDate varsa, URL'de güncelliyoruz, yoksa boş bırakıyoruz
+    urlParams.set("flightDirection", filter.flightDirection || ""); // flightDirection için aynı işlemi yapıyoruz
 
-    const searchQuery = urlParams.toString();
-    navigate(`?${searchQuery}`);
+    const searchQuery = urlParams.toString(); // URL parametrelerini string formatına çeviriyoruz
+    navigate(`?${searchQuery}`); // Yeni URL'yi oluşturup sayfa yönlendirmesini gerçekleştiriyoruz
   };
-console.log("flightDire", filter.flightDirection)
 
   return (
     <div className="bg-white rounded-xl m-4 max-w-sm md:max-w-full">
@@ -47,6 +47,7 @@ console.log("flightDire", filter.flightDirection)
       >
         <div className="flex items-center gap-1">
           <div className="relative">
+            {/* bu input içerisinden filtrelemek istediğimizi tarihi seçiyoruz */}
             <input
               type="date"
               className="peer w-full md:w-56 block px-3.5 pb-2.5 pt-2 text-sm  font-semibold text-[#4b0097] bg-transparent rounded-l-full border border-[#4b0097] appearance-none  "
@@ -65,20 +66,19 @@ console.log("flightDire", filter.flightDirection)
               htmlFor="scheduleDate"
               className="flex  absolute text-sm text-[#4b0097] duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2   peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
             >
-          Date
+              Date
             </label>
           </div>
 
           <div className="relative">
+            {/* bu input içerisinden filtrelemek istediğimizi uçuş yönünü seçiyoruz */}
             <select
               value={filter.flightDirection}
               name="flightDirection"
               className="peer w-full md:w-56 block px-3.5 pb-2.5 pt-2.5 text-sm font-semibold  text-[#4b0097] bg-transparent rounded-r-full border border-[#4b0097] appearance-none focus:outline-none "
               onChange={handleChange}
             >
-              <option >
-                Pick one
-              </option>
+              <option>Pick one</option>
               <option value="A">Arrival</option>
               <option value="D">Departure</option>
             </select>
@@ -92,6 +92,7 @@ console.log("flightDire", filter.flightDirection)
         </div>
 
         <div className="flex items-center gap-2">
+          {/* Eğer tarih ve uçuş yönü bilgileri inputa girilmemiş ise buton disabled oluyor */}
           <button
             disabled={
               filter.scheduleDate === "" || filter.flightDirection === ""

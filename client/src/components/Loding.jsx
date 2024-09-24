@@ -1,5 +1,6 @@
 
 import {InfinitySpin} from "react-loader-spinner"
+// Loading componenti, sayfa yüklenirken gösterilecek bir spinner animasyonu render eder
 const Loading = () => {
   return (
     <div className="flex items-center justify-center my-12">
