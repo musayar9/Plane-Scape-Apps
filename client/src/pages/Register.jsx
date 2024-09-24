@@ -5,45 +5,49 @@ import axios from "axios";
 import { FaEye } from "react-icons/fa";
 import FormInput from "../components/FormInput";
 const Register = () => {
+  /**kullanıcının firstName, lastName, email, password bilgilerini formData değişkeni içinde tutuyoruz */
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     email: "",
     password: "",
   });
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const navigate = useNavigate();
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
 
+  const [loading, setLoading] = useState(false); // verilerin yüklenme durumunu göstermek için bir loading tanımlıyourz
+  const [error, setError] = useState(""); // gelen hata mesajlarını ekranda göstermek için bir error değişkeni tanımlıyoruz
+  const [showPassword, setShowPassword] = useState(false); // Şifrenin gösterilip gösterilmeyeceğini kontrol ediyoruz
+  const navigate = useNavigate(); // sayfa yönlendirmesi için navigate fonksiyonunu kullanıyoruz
+  const handleChange = (e) => {
+    //input alanlarındaki değişiklikler yakalamak için bir handleChange fonksiyonu oluşturduk
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value }); // formData state'ini güncelliyoruz
+  };
+  // Form gönderimi için handleSubmit fonksiyonu oluşturduk
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    setLoading(true); // yüklenme durumunu kontrol ediyoruz
     try {
       const res = await axios.post(
+        // API'ye POST isteği gönderiyoruz
         `http://localhost:5000/api/v1/auth/register`,
         formData
       );
-      const data = res.data;
-      console.log(data);
+      const data = res.data; // API'den dönen veriyi alıyoruz
       setLoading(false);
-      navigate("/login");
-      return data;
+      navigate("/login"); // Başarılı kayıt sonrası giriş sayfasına yönlendiriyoruz
+      return data; // API'den dönen veriyi geri döndürüyoruz
     } catch (error) {
       setLoading(false);
       if (axios.isAxiosError(error)) {
-        setError(error.response.data.message);
+        setError(error.response.data.message); // Hata mesajını alıyoruz ve durumu ayarlıyoruz
       } else {
-        setError("Request failed");
+        setError("Request failed"); // Diğer hata durumları için genel bir hata mesajı ayarlıyoruz
       }
 
       if (error) {
+        // Eğer bir hata varsa
         setTimeout(() => {
-          setError("");
+          setError(""); // Hata mesajını 3 saniye sonra temizliyoruz
         }, 3000);
       }
     }
@@ -62,6 +66,9 @@ const Register = () => {
       </div>
 
       <form className="flex flex-col gap-4 p-4 " onSubmit={handleSubmit}>
+        {/*firstName, lastName, email ve password değerleri için input oluşturuyoruz. Input için gerekli olan değerleri 
+      FormInput componentine props olarak iletiyoruz. 
+      */}
         <div className="flex  justify-between flex-col md:flex-row gap-2  ">
           <div className="relative">
             <FormInput
@@ -102,6 +109,7 @@ const Register = () => {
         </div>
 
         <div className="relative ">
+          {/* / Şifrenin gösterilip gösterilmeyeceğini kontrol ediyoruz */}
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
@@ -125,13 +133,14 @@ const Register = () => {
             label="Password"
           />
         </div>
+        {/* password bilgisi için istenilen formatı kullanıcıya gösteriyoruz */}
         <p className="text-[9px] text-slate-600   -mt-2">
           The password must be <b>8 to 12 characters long</b>, and it must
           contain at least <b>one uppercase letter</b>,{" "}
           <b>one lowercase letter</b>, <b>one special character</b>, and{" "}
           <b>one number</b>.
         </p>
-
+        {/* hata durumunda kullanıcıya hata mesajını gösteriyoruz */}
         {error && (
           <div className="flex items-center gap-2  bg-red-500 text-white p-2 rounded-lg">
             <IoIosWarning />
@@ -143,6 +152,7 @@ const Register = () => {
           type="submit"
           className="bg-[#4b0097] text-white p-2 hover:translate-y-1 duration-200 ease-in rounded-md shadow-md"
         >
+          {/* loading durumuna göre ekranda bir animasyon gösterilir */}
           {loading ? (
             <div className="flex items-center justify-center gap-2">
               <span className="loading loading-infinity loading-xs"></span>

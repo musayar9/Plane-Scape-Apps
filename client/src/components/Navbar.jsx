@@ -6,10 +6,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/userSlice";
 import { removeBookFlight } from "../redux/bookFlightSlice";
 const Navbar = () => {
-  const { user } = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.user); // Kullanıcı bilgilerini Redux'tan alıyoruz
 
-  console.log("user", user);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); // Dispatch fonksiyonunu kullanmak için tanımlıyoruz
   return (
     <div className="navbar bg-slate-100">
       <div className="flex-1 flex  gap-2">
@@ -22,13 +21,13 @@ const Navbar = () => {
         <p className="text-xl font-semibold">Plane Scape</p>
       </div>
 
-      {user &&
+      {user && // Kullanıcı giriş yaptıysa navbar menüsünü göster
         user.response?.status !== 404 &&
         user.response?.status !== 400 && (
           <div className="flex z-20 gap-4">
             <div className="flex items-center justify-center"></div>
             <NavLink
-              to="/"
+              to="/" // Anasayfa bağlantısı
               className={({ isActive }) => {
                 return ` ${
                   isActive ? "text-[#4b0097] " : "text-slate-600"
@@ -39,7 +38,7 @@ const Navbar = () => {
               <span className="pl-2 group-hover:text-[#4b0097]">Home</span>
             </NavLink>
             <NavLink
-              to="/myFlight"
+              to="/myFlight" // uçuş rezervasyonları bağlantısı
               className={({ isActive }) => {
                 return ` ${
                   isActive ? "text-[#4b0097] " : "text-slate-600"
@@ -62,6 +61,8 @@ const Navbar = () => {
             </div>
 
             <div className="flex items-center">
+              {" "}
+              {/* Kullanıcı profil menüsü */}
               <div className="dropdown dropdown-end ">
                 <div
                   tabIndex={0}
@@ -99,7 +100,7 @@ const Navbar = () => {
                     <button
                       className=""
                       onClick={() => {
-                        dispatch(logout()), dispatch(removeBookFlight());
+                        dispatch(logout()), dispatch(removeBookFlight()); // Çıkış yaparken kullanıcı durumunu sıfırlıyoruz
                       }}
                     >
                       Logout
@@ -108,7 +109,8 @@ const Navbar = () => {
                 </ul>
               </div>
               <p className="text-slate-600 font-semibold text-sm hidden md:flex">
-                {user.firstName} {user.lastName}
+                {user.firstName} {user.lastName}{" "}
+                {/* Kullanıcının adı ve soyadı */}
               </p>
             </div>
           </div>

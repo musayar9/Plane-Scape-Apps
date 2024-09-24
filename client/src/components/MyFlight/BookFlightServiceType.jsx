@@ -1,6 +1,8 @@
 import PropTypes from "prop-types";
 
 const BookFlightServiceType = ({ serviceType }) => {
+
+/**service type göre kontrol işlemi */
   const checkServiceType = (type) => {
     let serviceType;
 

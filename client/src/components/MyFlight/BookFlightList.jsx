@@ -8,7 +8,8 @@ import BookFlightServiceType from "./BookFlightServiceType";
 import DeleteButton from "./DeleteButton";
 import PropTypes from "prop-types";
 
-const BookFlightList = ({ bookFlightList, setBookFlightList }) => {
+// bu component props olarak gelen uçuş rezervasyonlarını detaylı olarak gösteriyoruz
+const BookFlightList = ({ bookFlightList }) => {
   return (
     <div className="mt-4 mr-3">
       {bookFlightList?.length > 0 ? (
@@ -20,6 +21,7 @@ const BookFlightList = ({ bookFlightList, setBookFlightList }) => {
                 <div className="flex items-center ">
                   <div className="flex  gap-2 p-6">
                     <div>
+                      {/* kalkış veya varış ikonlarını koşulu olarak gösterme */}
                       {item.flightDirection === "A" ? (
                         <FaPlaneArrival
                           className="text-white bg-[#4b0097] w-10 h-10 p-1 rounded-full"
@@ -32,6 +34,7 @@ const BookFlightList = ({ bookFlightList, setBookFlightList }) => {
                         />
                       )}
                     </div>
+                    {/* Uçuş detaylarını ve yönünü göster */}
                     <div>
                       <p className="text-slate-500 text-xs">
                         {item.flightDirection === "A" ? "Arrival" : "Departure"}
@@ -49,12 +52,13 @@ const BookFlightList = ({ bookFlightList, setBookFlightList }) => {
                               to
                             </span>
                           )}
+                          {/* Uçuş varış veya kalkış destionations  göster */}
                           <Destinations
                             destination={item?.route.destinations[0]}
                           />
                         </div>
                       </div>
-
+                      {/* Uçuş tarihi, uçuş adı, ve havayolu bilgileri */}
                       <div className="flex items-center flex-col md:flex-row gap-2 mt-2 md:mt-0 md:space-x-12">
                         <div className="flex gap-4 space-x-14">
                           <div>
@@ -75,6 +79,7 @@ const BookFlightList = ({ bookFlightList, setBookFlightList }) => {
                             </p>
                           </div>
                         </div>
+                        {/* uçuş aktarma durumu servis tipi */}
                         <div className="flex gap-4 space-x-14">
                           <div>
                             <p className="text-[11px] sm:text-sm text-slate-500 md:pt-1">
@@ -101,26 +106,25 @@ const BookFlightList = ({ bookFlightList, setBookFlightList }) => {
                     </div>
                   </div>
                 </div>
-
+                {/* Uçuş fiyat bilgisini gösteren bileşen */}
                 <BookFlightPriceInfo price={item.price} />
               </div>
-
+              {/* rezervasyon iptal etme button */}
               <DeleteButton
                 item={item}
-                bookFlightList={bookFlightList}
-                setBookFlightList={setBookFlightList}
+        
               />
             </div>
           ))}
         </>
       ) : (
         <div className="flex flex-col items-center justify-center  bg-white rounded-xl p-8 space-y-4">
+          {/* Eğer rezervasyon bulunmuyorsa gösterilecek uçak simgesi */}
           <IoIosAirplane
             className="w-20 h-20 p-2 rounded-full text-white bg-[#4b0097]"
             size={48}
           />
-          
-
+          {/* Rezervasyon bulunamadığına dair gösterilecek mesaj mesaj */}
           <p className="text-2xl text-slate-500 font-semibold">
             You do not have a flight reservation yet
           </p>
@@ -133,5 +137,5 @@ const BookFlightList = ({ bookFlightList, setBookFlightList }) => {
 export default BookFlightList;
 BookFlightList.propTypes = {
   bookFlightList: PropTypes.array,
-  setBookFlightList: PropTypes.func,
+
 };

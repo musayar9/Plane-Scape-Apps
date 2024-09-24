@@ -5,26 +5,26 @@ import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { getBookFlight } from "../../redux/bookFlightSlice";
 
-const DeleteButton = ({ item, bookFlightList, setBookFlightList }) => {
+const DeleteButton = ({ item }) => {
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.user); // Kullanıcı durumunu Redux'tan alır.
 
   const handleDelete = async () => {
     try {
+      // Uçuş rezervasyonunu silmek için DELETE isteği.
       const res = await axios.delete(
         `http://localhost:5000/api/v1/bookFlight/${item._id}`
       );
-      const data = res.data;
-      const deleteBookFlight = bookFlightList.filter((d) => d._id !== item._id);
-      setBookFlightList(deleteBookFlight);
+      const data = res.data; // İstek sonucundaki veriyi alır.
+  
 
-      toast.success(data.message);
-      dispatch(getBookFlight({ userId: user._id }));
+      toast.success(data.message); // Başarılı silme işlemi için bildirim gösterir.
+      dispatch(getBookFlight({ userId: user._id })); // Güncellenmiş uçuş verilerini almak için eylemi dispatch eder.
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        toast.error(error.response.data.message);
+        toast.error(error.response.data.message); // Hata durumunda ilgili hata mesajını gösterir.
       } else {
-        toast.error("Request Failed");
+        toast.error("Request Failed"); // Genel bir hata mesajı gösterir.
       }
     }
   };
@@ -48,6 +48,5 @@ export default DeleteButton;
 
 DeleteButton.propTypes = {
   item: PropTypes.object,
-  bookFlightList: PropTypes.array,
-  setBookFlightList: PropTypes.func,
+
 };

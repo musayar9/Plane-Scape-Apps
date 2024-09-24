@@ -1,5 +1,6 @@
 import PropTypes from "prop-types"
 
+// uçuş sınıfına göre bilet fiyatları
 const BookFlightPriceInfo = ({price}) => {
   return (
     <div className="ml-4 md:ml-0 p-4 flex items-center gap-2 text-xs">

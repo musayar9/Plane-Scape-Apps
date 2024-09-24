@@ -60,9 +60,9 @@ const FlightList = ({ flight }) => {
     } catch (error) {
       // Hata mesajını kullanıcıya göstermek için toast kullanıyoruz
       if (axios.isAxiosError(error)) {
-        toast.error(error.response.data.message);
+        toast.error(error.response.data.message); // Hata durumunda ilgili hata mesajını gösterir.
       } else {
-        toast.error("Flight booking failed! Please try again.");
+        toast.error("Flight booking failed! Please try again."); // Genel bir hata mesajı gösterir.
       }
     }
   };
