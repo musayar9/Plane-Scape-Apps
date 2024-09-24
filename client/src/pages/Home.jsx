@@ -7,8 +7,11 @@ import { useLocation } from "react-router-dom";
 import Loading from "../components/Loding";
 import Error from "../components/Error";
 import FilterFlight from "../components/Home/FlightFilterArea/FilterFlight";
+import { useSelector } from "react-redux";
 const Home = () => {
   /**useState hook'unu kullanarak değişkenlerimiz tanımlıyoruz */
+
+  const { user } = useSelector((state) => state.user); // reduxdan user state'ini alıyoruz
   const [flight, setFlight] = useState([]); // uçuş verilerini bu değişkende tutuyoruz
   const [filter, setFilter] = useState({
     scheduleDate: "", // uçuş tarih filtresi
@@ -59,7 +62,11 @@ const Home = () => {
         setError(error.response.data); // Hata mesajını state'e atıyoruz
       }
     };
-    getFlight(); // API çağrısını yapıyoruz
+
+    /**burada user var ise veriyi getiritoruz */
+    if (user) {
+      getFlight(); // API çağrısını yapıyoruz
+    }
   }, [location.search]); // location.search değiştiğinde useEffect tekrar çalışacak
 
   // Eğer veri yükleniyorsa, Loading bileşenini gösteriyoruz
@@ -71,24 +78,24 @@ const Home = () => {
     <div className="max-w-7xl mx-auto p-5 md:p-3 lg:p-0">
       <div className="grid   md:grid-cols-10">
         <div className="grid md:col-span-8 order-2 md:order-1">
-        {/* tarih ve uçuş yönüne göre filtrlemelerin kontrolünü bu
+          {/* tarih ve uçuş yönüne göre filtrlemelerin kontrolünü bu
         component içinde yapıyoruz. Bu component içinde filter
         ve setFilter değerlerini props olarak geçiyoruz*/}
           <BookYourFlight filter={filter} setFilter={setFilter} />
           <div className="grid md:grid-cols-8 ">
             <div className="grid md:col-span-6 ">
-            {/* bütün uçuşlarımızı bu component içinde gösteriyoruz. flight değerini props olarak geçiyoruz */}
+              {/* bütün uçuşlarımızı bu component içinde gösteriyoruz. flight değerini props olarak geçiyoruz */}
               <FlightList flight={flight} />
             </div>
             <div className="hidden lg:grid col-span-2 ">
-            {/* bu component içinde uçuş saati, havalimanlarına göre ve fiyat durumuların göre filteleme secenekleri bulunuyor
+              {/* bu component içinde uçuş saati, havalimanlarına göre ve fiyat durumuların göre filteleme secenekleri bulunuyor
             tasarım için eklenen alan*/}
               <FilterFlight />
             </div>
           </div>
         </div>
         <div className="hidden md:grid  md:col-span-2  order-1 md:order-2">
-        {/* tasarım için oluşturulan component. bu component  */}
+          {/* tasarım için oluşturulan component. bu component  */}
           <TravelServices />
         </div>
       </div>
