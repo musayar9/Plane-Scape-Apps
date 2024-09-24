@@ -1,5 +1,8 @@
 ## Plane Scape
 
+
+
+
 ## Sunucu Tarafında Kullanılan Teknolojiler
 
 ![NodeJs](https://img.shields.io/badge/Nodejs-20.9.0-yellowgreen)
@@ -34,7 +37,7 @@
 
 Uygulama geliştirilirken sunucu (server) tarafında Node.js, Express.js, MongoDB, Cors, ve Bcrypt.js gibi teknolojiler kullanıldı. Kullanıcı bilgileri ve uçuş rezervasyon bilgileri MongoDB'de saklanmaktadır. Kullanıcı şifreleri, güvenlik amacıyla Bcrypt.js kullanılarak şifrelenmiştir.
 
-İstemci tarafı, JavaScript'in React kütüphanesi ile yazıldı. Uygulamanın durum (state) yönetimi için Redux-Toolkit kullanıldı ve kullanıcı (user) ile uçuş rezervasyon (bookFlight) bilgileri Redux-Persist ile localStorage'a kaydedildi. Uygulama içi yönlendirmeler (routing) için React Router DOM kullanıldı. Schiphol Havalimanı'nın sunduğu API'ler ve Express.js ile MongoDB kullanarak yazılan API'ler Axios ile çekildi.
+İstemci (client) tarafı, JavaScript'in React kütüphanesi ile yazıldı. Uygulamanın durum (state) yönetimi için Redux-Toolkit kullanıldı ve kullanıcı (user) ile uçuş rezervasyon (bookFlight) bilgileri Redux-Persist ile localStorage'a kaydedildi. Uygulama içi yönlendirmeler (routing) için React Router DOM kullanıldı. Schiphol Havalimanı'nın sunduğu API'ler ve Express.js ile MongoDB kullanarak yazılan API'ler Axios ile çekildi.
 
 Tasarımda Tailwind CSS kullanıldı. Uygulama içinde bildirim mesajları göstermek için React Hot Toast kütüphanesi kullanıldı. Veri çekme işlemleri sırasında, kullanıcıya bekleme durumunu göstermek için React Loader Spinner ile loading animasyonları oluşturuldu. İkon kullanımı için ise React Icons tercih edildi. Uygulama içinde tarih bilgileri moment kütüphanesi kullanarak formatlandı.
 
