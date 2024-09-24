@@ -67,7 +67,7 @@ const Home = () => {
     if (user) {
       getFlight(); // API çağrısını yapıyoruz
     }
-  }, [location.search]); // location.search değiştiğinde useEffect tekrar çalışacak
+  }, [location.search, user]); // location.search ve user değiştiğinde useEffect tekrar çalışacak
 
   // Eğer veri yükleniyorsa, Loading bileşenini gösteriyoruz
   if (loading) return <Loading />;

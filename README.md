@@ -70,7 +70,7 @@ Kullanıcı `Register` sayfasında kayıt olduktan sonra `Login` sayfasına yön
 
 ![img-6](./client/src/assets/images/homepage.jpg)
 
-Kullanıcı başarılı bir şekilde sisteme giriş yaptıktan sonra Anasayfaya yönlendirilmekte. Bu sayfada bütün uçuş kayıtlarını görüntüleyebilemkte. Uçuşları tarih ve hareket yönüne göre filtreleyebilmekte. Ve uçuş rezervasyonu yapabilmektedir.
+Kullanıcı başarılı bir şekilde sisteme giriş yaptıktan sonra Anasayfaya yönlendirilmekte. Bu sayfada bütün uçuş kayıtlarını görüntüleyebilmekte. Uçuşları tarih ve hareket yönüne göre filtreleyebilmekte. Ve uçuş rezervasyonu yapabilmektedir.
 
 ##### 3.a. Tarihe ve Hareket Yönüne göre uçuşları filtrleme
 
